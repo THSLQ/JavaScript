@@ -105,7 +105,7 @@ JavaScript 变量生命周期在它声明时初始化。
 
 ###### 5.4 ES6 let 关键字
 
-let 允许你声明一个作用域被限制在块级中的变量、语句或者表达式（对于使用 for 循环，中的循环变量，使用 let 声明）。与 var 关键字不同的是，它声明的变量只能是全局或者整个函数块的。
+let 允许你声明一个作用域被限制在块级中的变量、语句或者表达式（对于使用 for 循环中的循环变量，使用 let 声明）。与 var 关键字不同的是，它声明的变量只能是全局或者整个函数块的。
 
 ##### 6. JavaScript 事件
 
@@ -135,7 +135,7 @@ HTML 事件可以是浏览器行为，也可以是用户行为：
 
 JavaScript 字符串用于存储和处理文本。
 
-###### 7.1 字符串的 属性 和 方法
+###### 7.1 String 字符串的 属性 和 方法
 
 1. 属性：  
    constructor：返回创建字符串属性的函数；  
@@ -161,7 +161,7 @@ JavaScript 字符串用于存储和处理文本。
    trim() 移除字符串首尾空白(JS 中"A "空格也有长度 "A "长度为 2)  
    valueOf() 返回某个字符串对象的原始值
 
-##### 7. JavaScript 运算符
+#### 7. JavaScript 运算符
 
 ###### 7.1 对字符串和数字进行加法运算
 
@@ -198,9 +198,13 @@ _PS030_: undefined 除了与字符串进行累加时有效（undefined 视为字
 
 给定 x=6 以及 y=3，下表解释了逻辑运算符：
 && and (x < 10 && y > 1) 为 true  
-|| or (x==5 || y==5) 为 false  
-! not not !(x==y) 为 true  
+|| or (x == 5 || y == 5) 为 false  
+! not not !(x == y) 为 true  
 _PS010_: 其他数据类型转换为布尔类型的规则: null、 undefined、 0、 NaN、 空字符串 转换为 false，其他转化为 true。
+
+###### 8.3 常用函数  
+isNaN() 函数用于检查其参数是否是非数字值。  
+如果参数值为 NaN 或字符串、对象、undefined等非数字值则返回 true, 否则返回 false。
 
 ##### 9. 条件语句
 
@@ -267,6 +271,10 @@ console.log(x);// undefined
    > function isArray(myArray) {
    > return myArray.constructor.toString().indexOf("Array") > -1;
    > }
+```javascript
+// 也可以使用 prototype  
+console.log(Object.prototype.toString.call(myArray).indexOf("Array") > -1); //
+```
 
 3. 可以使用 constructor 属性来查看对象是否为日期 (包含字符串 "Date"):
    > function isDate(myDate) {
@@ -276,7 +284,7 @@ console.log(x);// undefined
 ###### 10.1 日期
 
 var myDate = new Date();  
-_一些方法_  
+**一些方法**  
 getDate() 从 Date 对象返回一个月中的某一天 (1 ~ 31)。  
 getDay() 从 Date 对象返回一周中的某一天 (0 ~ 6)。  
 getFullYear() 从 Date 对象以四位数字返回年份。  
@@ -289,7 +297,7 @@ getTime() 返回 1970 年 1 月 1 日至今的毫秒数。
 
 ###### 10.2 Number 数字
 
-**_字符串转成数字_**
+***字符串转成数字***
 
 1. Number()
 2. 一元运算符 + 可用于将变量转换为数字：
@@ -380,7 +388,7 @@ _PS：_ 声明提升：函数声明和变量声明总是会被解释器悄悄地
    JavaScript 只有声明的变量会提升，初始化（赋值...）不会提升。  
    也就是说，var x = 7; var x 是变量声明，会提升，但 x = 7 是初始化，不会提升。所以，如果 var x = 7;写在输出后面 console.log(x) 输出 x 是 undefined 的变量。
 
-**PS： 关于 函数提升 和 变量提升 **
+**PS： 关于 函数提升 和 变量提升**
 在 JS 解析机制中，函数提升，优先于变量提升。  
 _实例_
 
@@ -398,7 +406,7 @@ _实例_
 > getName = function() {console.log(2);} // 变量赋值并不提升，还在原来的位置  
 > getName(); // 最后输出 2
 
-_PS:_ 使用匿名函数不存在函数提升，因为函数名称使用变量表示，只存在变量提升。
+**PS:** 使用匿名函数不存在函数提升，因为函数名称使用变量表示，只存在变量提升。
 
 2. JavaScript 严格模式(user strict)  
    使用 "use strict" 指令，它不是一条语句，但是是一个字面量表达式。  
@@ -452,14 +460,15 @@ function f(){
 - 15.1 this 关键字  
   面向对象语言中 this 表示当前对象的一个引用。  
   但是在 JavaScript 中 this 不是固定不变的，它会随着执行环境的改变而改变。  
-   _ 在方法中 this 表示当前方法所属的对象  
-   _ 如果单独使用，this 表示全局对象  
-   _ 在函数中 this 表示全局对象  
-   _ 在函数中 严格模式 "use strict" 下，this 是未定义的（undefined）  
-   _ 在事件中，this 表示接受事件的元素  
-   _ 类似 call() 和 apply() 方法可以将 this 引用到任何对象
+   * 在方法中 this 表示当前方法所属的对象  
+   * 如果单独使用，this 表示全局对象  
+   * 在函数中 this 表示全局对象  
+   * 在函数中 严格模式 "use strict" 下，this 是未定义的（undefined）  
+   * 在HTML事件中，this 表示接受事件的元素  
+   * 类似 call() 和 apply() 方法可以将 this 引用到任何对象  
+**PS: this 绑定的优先级** new > bind > call,apply > obj.function() > 默认绑定
 
-_实例 1：_ 在方法中 this 表示当前方法所属的对象
+**实例 1：** 在方法中 this 表示当前方法所属的对象
 
 ```javascript
 var person = {
@@ -527,11 +536,11 @@ _实例 5：_ 在事件中，this 表示接受事件的元素
 </html>
 ```
 
-_实例 6：_ 类似 call() 和 apply() 方法可以将 this 引用到任何对象  
-_显式函数绑定：_  
+**实例 6:** 类似 call() 和 apply() 方法可以将 this 引用到任何对象  
+**显式函数绑定:**  
 在 JavaScript 中函数也是对象，对象则由方法，call() 和 apply() 就是对象的方法。  
 这两个方法异常强大，他们允许切换函数执行的上下文环境(context)，即 this 绑定的对象。  
-PS： 在下面实例中，当我们使用 person2 作为参数来调用 person1.fullName 方法时, this 将指向 person2, 即便它是 person1 的方法：
+在下面实例中，当我们使用 person2 作为参数来调用 person1.fullName 方法时, this 将指向 person2, 即便它是 person1 的方法：
 
 ```javascript
 var person1 = {
@@ -551,14 +560,14 @@ person1.fullName.call(person2); // 返回 "John Doe"
 - 15.2 let 和 const 关键字[ES6]  
   let 声明的变量只在 let 命令所在的代码块内有效  
   const 声明一个只读的变量，一旦声明，常量的值就不能再被修改  
-  *PS：*在 ES6 之前，JavaScript 中只有两种作用域：全区变量作用域 和 函数内的局部变量作用局。
+  **PS:** 在 ES6 之前，JavaScript 中只有两种作用域：全区变量作用域 和 函数内的局部变量作用局。
 
-      ##### I 全局变量
-      在函数在声明的变量是全局的，全局变量在JavaScript 程序的任何位置都可以访问。
-      ##### II 局部变量
-      在函数内部声明的变量，其作用域是局部的（函数内部）。
-      在函数内部使用var 声明的变量只能在函数内部访问，如果不适应var 则是全局变量。
-      *实例：*
+##### I 全局变量
+在函数在声明的变量是全局的，全局变量在JavaScript 程序的任何位置都可以访问。
+##### II 局部变量
+在函数内部声明的变量，其作用域是局部的（函数内部）。
+在函数内部使用var 声明的变量只能在函数内部访问，如果不适应var 则是全局变量。
+**实例：**
 
 ```javascript
 function fn() {
@@ -566,13 +575,13 @@ function fn() {
 } // 等价于 var a = b, b = 1; 因为b没有使用var声明，是全局变量，a是局部变量
 fn();
 console.log(b); // 输出 1
-console.log(a); // 报错，a undefined
+console.log(a); // 报错:Uncaught ReferenceError: a is not defined at ...
 ```
 
-    ##### III JavaScript 块级作用域
-    使用 var 关键字声明的变量不具备块级作用域的特性，它在{}外部依然能够被访问。
-    {var x = 2;} // 外部任然可以使用x
-    * 在ES6 之前，是没有块级作用域的概念的。
+##### III JavaScript 块级作用域
+使用 var 关键字声明的变量不具备块级作用域的特性，它在{}外部依然能够被访问。
+{var x = 2;} // 外部任然可以使用x
+* 在ES6 之前，是没有块级作用域的概念的。
     ES6可以使用 let 关键字来实现 块级作用域 (Block Scope)。
     let 声明的变量只在 let 命令所在的代码块{}内有效，在{}之外不能被访问。
     {let x = 2;}} // 外部访问不到x
@@ -624,8 +633,8 @@ for (let i = 0; i < 10; i++) {
 // 这里输出 i 为 5
 ```
 
-_PS01:_ 在第一个实例中，使用了 var 关键字，它声明的变量是全局的，包括循环体内与循环体外。  
-_PS02:_ 在第二个实例中，使用 let 关键字， 它声明的变量作用域只在循环体内，循环体外的变量不受影响。
+**PS01:** 在第一个实例中，使用了 var 关键字，它声明的变量是全局的，包括循环体内与循环体外。  
+**PS02:** 在第二个实例中，使用 let 关键字， 它声明的变量作用域只在循环体内，循环体外的变量不受影响。
 
 - 3. HTML 代码中使用全局变量  
      在 JavaScript 中, 全局作用域是针对 JavaScript 环境。  
@@ -697,19 +706,19 @@ let 关键字在不同作用域，或不同块级作用域中是可以重新声�
 - 5.  const 关键字  
       const 用于声明一个或多个常量，声明时必须进行初始化，且初始化后值不可再修改。
 
-          * const定义常量与使用let 定义的变量相似：
-              > * 二者都是块级作用域
-              > * 都不能和它所在作用域内的其他变量或函数拥有相同的名称
-          * 两者还有以下两点区别：
-              > * const声明的常量必须初始化，而let声明的变量不用
-              > * const 定义常量的值不能通过再赋值修改，也不能再次声明。而 let 定义的变量值可以修改。
+      * const定义常量与使用let 定义的变量相似：
+          > * 二者都是块级作用域
+          > * 都不能和它所在作用域内的其他变量或函数拥有相同的名称
+      * 两者还有以下两点区别：
+          > * const声明的常量必须初始化，而let声明的变量不用
+          > * const 定义常量的值不能通过再赋值修改，也不能再次声明。而 let 定义的变量值可以修改。
 
-**_PS:_** 在 JS 中 const _并非真正的常量_  
+**_PS:_** 在 JS 中 const **并非真正的常量**  
 const 的本质: const 定义的变量并非常量，并非不可变，它定义了一个常量引用一个值。使用 const 定义的对象或者数组，其实是可变的。  
-_实例:_
+**实例:**
 
 ```javascript
-/ 创建常量对象
+// 创建常量对象
 const car = {type:"Fiat", model:"500", color:"white"};
 // 修改属性:
 car.color = "red";
@@ -724,7 +733,7 @@ const car = { type: "Fiat", model: "500", color: "white" };
 car = { type: "Volvo", model: "EX60", color: "red" }; // 错误
 ```
 
-_实例 02：_  
+**实例 02：** 
 以下实例修改常量数组：
 
 ```javascript
@@ -754,7 +763,7 @@ JSON 英文全称 JavaScript Object Notation
 JSON 是一种轻量级的交换格式  
 JSON 是独立的语言  
 JSON 易于理解  
-_PS:JSON 使用 JavaScript 语法，但是 JSON 格式仅仅是一个文本。文本可以被任何编程语言读取及作为数据格式传递。_
+**PS:** JSON 使用 JavaScript 语法，但是 JSON 格式仅仅是一个文本。文本可以被任何编程语言读取及作为数据格式传递。
 
 ###### II JSON 格式化后为 JavaScript 对象
 
@@ -783,18 +792,18 @@ var text =
 var obj = JSON.parse(text);
 ```
 
-_PS:相关函数_  
+**PS:相关函数**  
 |函数|描述|
 |:---|:---|
 |JSON.parse()|用于将一个 JSON 字符串转换为 JavaScript 对象|
 |JSON.stringify()|用于将 JavaScript 值转换成 JSON 字符串|
 
-##### 17. JavaScript void
+#### 17. JavaScript void
 
 ###### I javascript:void(0)
 
 我们经常使用得到 javascript:void(0) 这样的代码，那么在 JavaScript 中 javascript:void(0) 代表什么意思呢？  
-javascript:void(0) 中最关键的是 void 关键字，void 是 JavaScript 中非常重要的关键字,该操作符指定要计算一个表达式但是不返回值。  
+javascript:void(0) 中最关键的是 void 关键字，void 是 JavaScript 中非常重要的关键字，该操作符指定要计算一个表达式但是不返回值。  
 语法格式如下：
 
 ```javascript
@@ -852,8 +861,7 @@ javascript: void func();
 而 javascript:void(0)，仅表示一个死链接。  
 在页面很长的时候会使用 \# 来定位页面的具体位置，格式为：\# + id。  
 如果你要定义一个死链接请使用 javascript:void(0)  
-_实例：_
-
+**实例：**
 ```html
 <a href="javascript:void(0);">点我没有反应的!</a>
 <a href="#pos">点我定位到指定位置!</a>
@@ -864,7 +872,11 @@ _实例：_
 ```
 
 ##### 18. JavaScript 异步编程
-
+可以用于 JavaScript 异步模式的编程的方式：  
+1. 回调函数 setTimeout
+2. 事件监听
+3. 发布 publish / 订阅 subscribe
+4. Promise 对象
 ###### I 异步编程 Asynchronous, async 与 同步编程 Synchronous, sync
 
 ###### II 什么时候使用异步编程
@@ -878,7 +890,7 @@ _实例：_
 ##### III 回调函数
 
 回调函数就是一个函数，它是在我们启动一个异步任务的时候就告诉它：等你完成了这个任务之后要干什么。这样一来主线程几乎不用关心异步任务的状态了，他自己会善始善终。  
-_实例 1：_
+**实例 1：**
 这段程序中的 setTimeout 就是一个消耗时间较长（3 秒）的过程，它的第一个参数是个回调函数，第二个参数是毫秒数，这个函数执行之后会产生一个子线程，子线程会等待 3 秒，然后执行回调函数 "print"，在命令行输出 "RUNOOB!"。
 
 ```javascript
@@ -887,7 +899,7 @@ setTimeout(function () {
 }, 3000);
 ```
 
-_实例 2：_  
+**实例 2：** 
 既然 setTimeout 会在子线程中等待 3 秒，在 setTimeout 函数执行之后主线程并没有停止
 
 ```javascript
@@ -907,19 +919,18 @@ console.log("2");
 
 ##### 19. JavaScript Promise
 
-Promise 是一个 ECMAScript6 提供的 ***类***，目的是更加优雅的书写复杂的异步任务。
+Promise 是一个 ECMAScript6 提供的 **类**，目的是更加优雅的书写复杂的异步任务。
 
 ###### I 创建 Promise
 
-- 语法：
-
+**语法：**
 ```javascript
 new Promise(function (resolve, reject) {
   // 函数体
 });
 ```
 
-- 应用：
+* 应用：
   我们之前遇到的异步任务都是一次异步，如果需要多次调用异步函数呢？  
   例如，如果我想分三次输出字符串，第一次间隔 1 秒，第二次间隔 4 秒，第三次间隔 3 秒：  
   使用 setTimeout
@@ -984,16 +995,13 @@ new Promise(function (resolve, reject) {
 // 执行结果： 1 3 2
 // 这里，第二次没有返回一个新的Promise，所以第三层还是依赖于第一层的，所以3s后执行，比第二层4s快。
 ```
-
-Promise 将嵌套格式的代码变成了顺序格式的代码。
+**Promise 将嵌套格式的代码变成了顺序格式的代码。**
 
 ###### II Promise 使用
-
 Promise 构造函数只有一个参数，是一个函数，这个函数在构造之后会直接被异步运行，所以我们称之为起始函数。  
 起始函数包含两个参数 resolve 和 reject。  
 resolve 和 reject 都是函数，其中调用 resolve 代表一切正常，reject 是出现异常时所调用的。  
-_实例 01：_
-
+**实例 01**
 ```javascript
 new Promise(function (resolve, reject) {
   var a = 0;
@@ -1014,12 +1022,11 @@ new Promise(function (resolve, reject) {
 //          End
 ```
 
-_说明 01：_  
+**说明 01：** 
 Promise 类有.then(),.catch(),.finally() 三个方法，这三个方法的参数都是一个函数。  
 .then() 可以将参数中的函数添加到当前 Promise 的正常执行序列，.catch() 则是设定 Promise 的异常处理序列，.finally() 是在 Promise 执行的最后一定会执行的序列。  
- .then() 传入的函数会按顺序依次执行，有任何异常都会直接跳到 catch 序列。  
- _实例 02：_
-
+.then() 传入的函数会按顺序依次执行，有任何异常都会直接跳到 catch 序列。  
+**实例 02**
 ```javascript
 new Promise(function (resolve, reject) {
   console.log(1111);
@@ -1043,7 +1050,7 @@ new Promise(function (resolve, reject) {
 //An error
 ```
 
-_说明 02：_  
+**说明 02**
  resolve() 中可以放置一个参数用于向下一个 then 传递一个值，then 中的函数也可以返回一个值传递给 then。  
  但是，如果 then 中返回的是一个 Promise 对象，那么下一个 then 将相当于对这个返回的 Promise 进行操作，这一点从刚才的计时器的例子中可以看出来。  
  reject() 参数中一般会传递一个异常给之后的 catch 函数用于处理异常。  
@@ -1052,9 +1059,7 @@ resolve 和 reject 的作用域只有起始函数，不包括 then 以及其他�
 resolve 和 reject 并不能够使起始函数停止运行，别忘了 return。
 
 ###### III Promise 函数
-
 上述的 "计时器" 程序看上去比函数瀑布还要长，所以我们可以将它的核心部分写成一个 Promise 函数：
-
 ```javascript
 function print(delay, message) {
   return new Promise(function (resolve, reject) {
@@ -1076,6 +1081,17 @@ print(1000, "1")
 // 结果: 1 2 3
 // 如果取消return 则，2和3的then都是依赖于1的promise，所以执行结果为1 3 2
 ```
+###### IV 其他 Promise 方法  
+* Promise.all() 方法用于将多个 Promise 实例，包装成一个新的 Promise 实例。  
+```javascript
+var p = Promise.all([p1,p2,p3]);
+```
+Promise.all 方法的参数不一定是数组，但是必须具有 iterator 接口，且返回的每个成员都是 Promise 实例。  
+> p 的状态由 p1、p2、p3 决定，分成两种情况。
+> * 只有p1、p2、p3的状态都变成fulfilled，p的状态才会变成fulfilled，此时p1、p2、p3的返回值组成一个数组，传递给p的回调函数。
+> * 只要p1、p2、p3之中有一个被rejected，p的状态就变成rejected，此时第一个被reject的实例的返回值，会传递给p的回调函数。
+
+* Promise.race() 方法同样是将多个 Promise 实例，包装成一个新的 Promise 实例。
 
 ###### IV 异步函数
 
@@ -1102,8 +1118,7 @@ async function asyncFunc() {
       throw "Some error"; // 或者 reject("Some error")
     });
   } catch (err) {
-    console.log(err);
-    // 会输出 Some error
+    console.log(err); // 会输出 Some error
   }
 }
 asyncFunc();
@@ -1129,7 +1144,7 @@ asyncFunc(); // 输出： Return value
      * pending：初始状态，不是成功或失败的状态  
      * fulfilled: 操作成功完成，resolved  
       * rejected：操作失败  
-     只有一步操作的结果，可以决定当前是哪一种状态，其他操作都无法改变这个状态。
+     只有异步操作的结果，可以决定当前是哪一种状态，其他操作都无法改变这个状态。
   2. 一旦状态改变，就不会再变，任何时候都能得到这个结果。  
       Promise 对象的状态改变，只有两种可能：
       从 pending -> fulfilled（即，resolved）
@@ -1157,7 +1172,7 @@ asyncFunc(); // 输出： Return value
 /正则表达式主体/修饰符(可选)  
 主体： \^[1-9]+abc\$
         \^ 匹配输入字符串的开头
-        [1-9]+ 匹配1或多次数字，[1-9]1-9的单个数字，+匹配一次或多次
+        [1-9]+ 匹配1次或多次数字，[1-9]1-9的单个数字，+匹配一次或多次
         abc\$ 匹配以字母 abc 并以 abc 结尾，\$匹配输入字符串结尾位置。
 _实例：_
 
@@ -1255,16 +1270,14 @@ console.log(patt.test("The best things in life are free!")); // true
 exec() 方法是一个正则表达式方法。  
 exec() 方法用于检索字符串中的正则表达式的匹配。  
 该函数返回一个数组，其中存放匹配的结果。如果未找到匹配，则返回值为 null。  
-_实例：_
-
+**实例：**
 ```javascript
 console.log(/e/.exec("The best things in life are free!")[0]); // e
 console.log(/e/.exec("The best things in life are free!").input); // The best things in life are free!
 // 输出
 ```
 
-_实例 01：_
-
+**实例 01：**
 ```javascript
 // 判断输入是否为数字、字母、下划线组成
 var pattern = /^\w+$/;
@@ -1278,8 +1291,7 @@ console.log(pattern.test(str));
 /^\d+$/
 ```
 
-*实例 02：*正则表达式常用实例
-
+**实例 02：** 正则表达式常用实例
 ```javascript
 // 是否带有小数
 var regex01 = /^\d+\.\d+$/;
@@ -1298,10 +1310,8 @@ var regex05 = /^\w+@[a-zA-Z0-9]{2,10}(?:\.[a-z]{2,4}){1,3}$/;
 ```
 
 ###### IX 使用 字符串方法 match() 匹配正则表达式
-
 match() 方法，可以匹配一个正则表达式，并返回一个数组。没有匹配到结果，返回 null
-_实例 01：_
-
+**实例 01：**
 ```javascript
 var str = "google runoob taobao";
 var patt = /[abc]/g;
@@ -1344,36 +1354,37 @@ str.match(patt);
   |{n,}|n 是一个非负整数。 **至少** 匹配 n 次。|
   |{n,m}|m 和 n 均为非负整数，其中 n <= m。最少匹配 n 次且最多匹配 m 次。|
 
-*PS01:* * 和 + 都是贪婪的，因为它们会尽可能多的匹配文字，只有在它们的后面加上?就可以实现非贪婪或最小匹配。  
-*实例：*
+**PS01:** * 和 + 都是贪婪的，因为它们会尽可能多的匹配文字，只有在它们的后面加上?就可以实现非贪婪或最小匹配。  
+**实例：**
 
 ```javascript
 // 例如，您可能搜索 HTML 文档，以查找在 h1 标签内的内容。
 var str = "<h1>RUNOOB-菜鸟教程</h1>";
 str.match(/^<.*?>$/); //  <h1>
+// . 匹配非\n\r
 
 var str = "<h1>RUNOOB-菜鸟教程</h1>";
 str.match(/^<.*>$/); //  <h1>RUNOOB-菜鸟教程</h1>
 ```
 
-- 定位符  
+* 定位符  
   定位符 能够将正则表达式固定到行首或行尾。
   使用定位符，能够创建这样的正则表达式，这些正则表达式出现在一个单词内、在一个单词的开头或者一个单词的结尾。  
   定位符用来描述字符串或单词的边界，^ 和 $ 定位符分别指字符串的开始与结束。 \b 描述单词的前或后边界。\B 表示非单词边界。  
-  *PS01:* 不能将限定符与定位符一起使用。
+  **PS01:** 不能将限定符与定位符一起使用。
   由于在紧靠换行或者单词边界的前面或后面不能有一个以上位置，因此不允许诸如 \^ 之类的表达式。  
 
-  *PS02:* 若要匹配一行文本开始处的文本，请在正则表达式的开始使用 ^ 字符。不要将 ^ 的这种用法与中括号表达式内的用法混淆。
+  **PS02:** 若要匹配一行文本开始处的文本，请在正则表达式的开始使用 ^ 字符。不要将 ^ 的这种用法与中括号表达式内的用法混淆。
 
-  *PS03:* 若要匹配一行文本的结束处的文本，请在正则表达式的结束处使用 $ 字符。  
-  *实例:*
+  **PS03:** 若要匹配一行文本的结束处的文本，请在正则表达式的结束处使用 $ 字符。  
+  **实例:**
 
 ```javascript
 // 真正的章节标题不仅出现行的开始处，而且它还是该行中仅有的文本。它既出现在行首又出现在同一行的结尾。
 var patt = /^Chapter [1-9][0-9]{0,1}$/;
 ```
 
-**单词边界是单词和空格之间的位置。非单词边界是任何其他位置。**
+    PS 单词边界是单词和空格之间的位置。非单词边界是任何其他位置。
 
 ##### 21 JavaScript 代码规范
 
@@ -1421,7 +1432,7 @@ var z = myFunction(4,3);
 提升（Hoisting）应用在变量的声明与函数的声明。  
 ***PS:*** 使用表达式定义函数时无法提升。  
 
-##### 5. 自调用函数  (function(){})  (function(){})()
+##### 5. 自调用函数  (function(){}) 和 (function(){})()
 函数表达式可以'自调用'。  
 自调用表达式会自动调用。  
 如果表达式后面紧跟()，则会自动调用。  
@@ -1457,7 +1468,7 @@ console.log(txt); // function myFunction(a, b) { return arguments.length; }
 ##### 7. 箭头函数  
 ES6 新增了箭头函数。  
 箭头函数表达式的语法比普通函数表达式更简洁。  
-***语法：***  
+**语法：** 
 > 1. (参数1, 参数2, …, 参数N) => { 函数声明 }  
 > 2. (参数1, 参数2, …, 参数N) => 表达式(单一)   
 >     // 相当于：(参数1, 参数2, …, 参数N) =>{ return 表达式; }  
@@ -1467,7 +1478,7 @@ ES6 新增了箭头函数。
 > 4. 没有参数的函数应该写成一对圆括号  
 >     () => {函数声明}  
 
-***实例：***  
+**实例：** 
 ```javascript
 // ES5  
 var x = function(a,b) {return a * b;};
@@ -1476,7 +1487,7 @@ var x = function(a,b) {return a * b;};
 var x = (a,b) => a * b; // 或  
 var x1 = (a,b) => { return a * b; }
 ```
-* 有的箭头函数都没有自己的 this。 不适合定义一个 对象的方法。  
+* 有的箭头函数都没有自己的 this。 不适合定义一个对象的方法。  
 * 当我们使用箭头函数时，箭头函数会默认绑定外层的this 的值，所以在箭头函数中 this 的值和外层的 this 是一样的。  
 * 箭头函数 是不能提升的，需要在使用之前定义。  
 * 使用 const 比 var 安全，因为表达式始终是一个常量。  
@@ -1485,9 +1496,6 @@ var x1 = (a,b) => { return a * b; }
 
 #### II JavaScript 函数参数  
 JavaScript 函数对参数的值没有进行任何的检查。  
-
----
-
 ###### 1. 函数显式参数(Parameters) 和 隐式参数(Arguments)  
 * 函数显式参数 在函数定义是列出  
 * 函数隐式参数 在函数调用时传递给函数真正的值  
@@ -1523,7 +1531,7 @@ myFunction(0, 2) // 输出 2
 myFunction(5); // 输出 15, y 参数的默认值
 ```
 * arguments 对象  
-JavaScript 函数有个内置的对象 arguments 对象。argument 对象包含了函数调用的参数数组。  
+JavaScript 函数有个内置的对象 arguments 对象。arguments 对象包含了函数调用的参数数组。  
 通过这种方式你可以很方便的找到最大的一个参数的值：  
 ```javascript
 x = findMax(1, 123, 500, 115, 44, 88);
@@ -1598,7 +1606,7 @@ JavaScript 函数有4种调用方式。
 
 * 3. 函数作为方法调用（即将函数定义为对象的方法）  
   在 JavaScript 中你可以将函数定义为对象的方法。  
-  ***实例：***
+  **实例：**
   以下实例创建了一个对象 (myObject), 对象有两个属性 (firstName 和 lastName), 及一个方法 (fullName):
   ```javascript
   var myObject = {
@@ -1644,7 +1652,7 @@ myObject2 = myFunction.apply(myObject2,myArray); // 20
 > * 在 JavaScript 非严格模式下，如果第一个参数的值是null 或 undefined，它将使用全局对象替代。  
 > * 通过 call() 或 apply() 方法你可以设置 this 的值, 且作为已存在对象的新方法调用。  
 
-***实例：***  
+**实例：**  
 ```javascript
 // 在 JavaScript 严格模式("use strict")下，在调用函数时第一个参数会会成为 this 的值，即使该参数不是一个对象。  
 var value = "我在这里!";
@@ -1656,7 +1664,7 @@ obj.fun.call(value); // 我在这里!
 ```
 
 #### IV  JavaScript 闭包  
-JavaScript 变量可是局部变量 或 全局变量。  
+JavaScript 变量可是 局部变量 或 全局变量。  
 私有变量可以用到闭包。  
 
 ###### 1. 全局变量  
@@ -1740,6 +1748,7 @@ var add = (function() {
   var counter = 0;
   return function () { return counter += 1;}
 })();
+console.log(add); // ƒ () { return counter += 1;}
 add();
 add();
 add(); // 计数器为3
@@ -1755,14 +1764,13 @@ function outFunction() {
 var add = outFunction();   // 赋值给add 是函数plus();
 
 ```
-
-***实例解析：***  
+**实例解析：**
 变量add指定了函数自我调用的返回值。  
 自我调用函数执行一次。设置计数器为0，并返回函数表达式。  
 add变量可以作为一个函数使用。非常棒的部分是它可以访问函数上一层作用域的计数器。  
 这个叫作 JavaScript 闭包。它使得函数拥有私有变量变成可能。  
 计数器受匿名函数的作用域保护，只能通过 add 方法修改。  
-***PS:*** 闭包 是一种保护私有变量的机制，在函数执行时形成私有的作用域，保护里面的私有变量不受外界干扰。直观的说就是形成一个不销毁的栈环境。  
+**PS:** 闭包 是一种保护私有变量的机制，在函数执行时形成私有的作用域，保护里面的私有变量不受外界干扰。直观的说就是形成一个不销毁的栈环境。  
 
 
 
@@ -1777,7 +1785,7 @@ class ClassName {
   constructor() { ... }
 }
 
-***实例：***
+**实例：**
 ```javascript
 class Runoob {
   constructor(name, url) {
@@ -1821,7 +1829,7 @@ console.log(Runoob.name);
 
 ###### 2. 类的方法  
 使用关键字 class 创建一个类，可以添加一个 constructor() 方法，然后添加任意数量的方法。 
-***实例***
+**实例**
 ```javascript
 class Runoob {
   constructor(name, year) {
@@ -1835,8 +1843,7 @@ class Runoob {
 }
  
 let runoob = new Runoob("菜鸟教程", 2018);
-document.getElementById("demo").innerHTML =
-"菜鸟教程 " + runoob.age() + " 岁了。";
+document.getElementById("demo").innerHTML = "菜鸟教程 " + runoob.age() + " 岁了。";
 ```
 
 ###### 3. 严格模式 "use strict"  
@@ -1864,8 +1871,8 @@ super() 方法用于调用父类的构造函数。
 当创建一个类时，不需要重新编写新的数据成员和成员函数，只需指定新建的类继承了一个已有的类的成员即可。  
 这个已有的类称为基类（父类），新建的类称为派生类（子类）。  
 
-##### 1.  getter 和 setter 
-类中可以使用getter 和 setter 获取和设置值。getter 和 setter 都需要在严格模式下执行。
+###### 1.  getter 和 setter 
+类中可以使用 getter 和 setter 获取和设置值。 getter 和 setter 都需要在严格模式下执行。
 getter 和 setter 可以使得我们对属性的操作变的很灵活。  
 类中添加 getter 和 setter 使用的是 get 和 set 关键字。  
 ***实例：***  
@@ -1883,10 +1890,10 @@ class Runoob{
 }
 
 let noob = new Runoob("菜鸟教程");
-console.log(noob.setName);
+console.log(noob.s_name);
 ```
 ***PS:即使 getter 是一个方法，当你想获取属性值时也不要使用括号。***  
-getter/setter 方法的名称不能与属性的名称相同，在本例中属名为 siteName。  
+getter / setter 方法的名称不能与属性的名称相同，在本例中属名为 siteName。  
 很多开发者在属性名称前使用下划线字符 _ 将 getter/setter 与实际属性分开。_siteName
 ***实例***
 要使用 setter，请使用与设置属性值时相同的语法，虽然 set 是一个方法，但需要不带括号：
@@ -1904,7 +1911,7 @@ class Runoob {
 }
 let noob = new Runoob("菜鸟教程");
 noob.siteName = "RUNOOB";
-console.log(noob.setName);
+console.log(noob.siteName);
 ```
 ###### 2. 提升  
 函数姓名和类声明之间的一个重要区别在于，函数声明会提升，类声明不会。  
@@ -1932,13 +1939,13 @@ let noob = new Runoob("菜鸟教程");
 // console.log(noob.hello());
 // 以上代码会报错
 
-// 如果你想在对象 noob 中使用静态方法，可以作为一个参数传递给它：
+// 如果你想在实例化对象 noob 中使用静态方法，可以作为一个参数传递给它：
 console.log(Runoob.hello(noob););
 ```
 ___
 
 
-### 四、 JS HTML DOM  2022.0405  
+## 四、 JS HTML DOM  2022.0405  
 通过 HTML DOM，可访问 JavaScript HTML 文档的所有元素。  
 #### I HTML DOM(文档对象模型 Document Object Model)  
 当网页被加载时，浏览器会创建页面的文档对象模型（DOM）  
@@ -1951,10 +1958,10 @@ ___
 
 ###### 1. 查找 HTML 元素  
 通过 JavaScript，您需要操作 HTML 元素。为了做到这件事情，您必须首先找到该元素。有三种方法来做这件事：  
-> * 1. 通过id找到HTML元素.  
-  > var x=document.getElementById("intro");
-  > 如果找到该元素，则该方法将以对象（在 x 中）的形式返回该元素。
-  > 如果未找到该元素，则 x 将包含 null。
+ * 1. 通过id找到HTML元素.  
+    > var x=document.getElementById("intro");
+    > 如果找到该元素，则该方法将以对象（在 x 中）的形式返回该元素。
+    > 如果未找到该元素，则 x 将包含 null。
 * 2. 通过标签名找到HTML元素.
   > 本例查找 id="main" 的元素，然后查找 id="main" 元素中的所有 \<p> 元素：
   > var x=document.getElementById("main");
@@ -1964,7 +1971,7 @@ ___
   > var x=document.getElementsByClassName("intro");
 
 ***PS:***
-getElementByTagName 和 getElementByClassName 这两个方法查找**多个**DOM元素，返回值是htmlcollection类型，是伪数组而不是真正的数组，不是使用数组方法。  
+getElementsByTagName 和 getElementsByClassName 这两个方法查找**多个**DOM元素，返回值是HtmlCollection类型，是伪数组而不是真正的数组，不是使用数组方法。  
 可以使用数组原型配合slice方法，利用call，apply，bind方法将伪数组转为真数组。  
 ***实例：***
 ```javascript
@@ -2005,13 +2012,13 @@ document.write(Date());
 </html>
 ```
 
-***PS:*** 绝对不要在文档(DOM)加载完成之后使用 document.write()。这会覆盖该文档。 
+**PS:** 绝对不要在文档(DOM)加载完成之后使用 document.write()。这会覆盖该文档。 
 
 ###### 2. JavaScript  改变 HTML 内容  
 修改 HTML 内容的最简单的方法是使用 innerHTML 属性。  
 改变 HTML 元素的内容，请使用这个语法：  
 > document.getElementById("id").innerHTML = ....
-***实例：***
+**实例：**
 ```html
 <!DOCTYPE html>
 <html>
@@ -2034,8 +2041,9 @@ document.getElementById("p1").innerHTML="新文本!";
 ###### 3. JavaScript  改变 HTML 属性  
 改变 HTML 元素的属性，请使用这个语法：  
 > document.getElementById("id").attribute = ...
+> attribute 是具体的属性，例如img标签的src属性alt属性
 
-***实例：***
+**实例：**
 ```html
 <!DOCTYPE html>
 <html>
@@ -2058,7 +2066,1973 @@ document.getElementById("image").src="landscape.jpg";
 ###### 4. JavaScript HTML DOM - 改变CSS  
 HTML DOM 允许 JavaScript 改变 HTML 元素的样式。  
 改变 HTML 元素的样式，请使用这个语法：  
-> document.getElementById(id).style.property = ...
+> document.getElementById(id).style.property = ...  
+> property 为具体的样式属性 ,color,fontFamily,fontSize等
+
+**实例**
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<body>
+ 
+<p id="p1">Hello World!</p>
+<p id="p2">Hello World!</p>
+<script>
+document.getElementById("p2").style.color="blue";
+document.getElementById("p2").style.fontFamily="Arial";
+document.getElementById("p2").style.fontSize="larger";
+</script>
+<p>以上段落通过脚本修改。</p>
+ 
+</body>
+</html>
+
+```
+
+#### III JavaScript HTML DOM 事件
+HTML DOM 使 JavaScript 有能力对 HTML 事件做出反应。  
+###### 1. 对事件做出反应  
+可以在事件发生时执行 JavaScript，比如当用户在 HTML 元素上点击时。  
+用户点击某个元素时执行代码，请向一个 HTML 事件属性添加 JavaScript 代码：
+> onclick=JavaScript  
+
+###### 2. HTML DOM 事件
+HTML DOM 事件允许 Javascript 在HTML文档元素中注册不同事件处理程序。  
+事件通常与函数结合使用，函数不会在事件发生前被执行！  
+
+|鼠标事件|描述|  
+|:---|:---|
+|onclick|用户点击鼠标时|
+|oncontextmenu|当用户右键打开上下文菜单时触发|
+|ondblclick|当用户双击某个对象时触发|
+|onmousedown|鼠标按钮被按下。|
+|onmouseup|鼠标按键被松开。|
+|onmouseenter|当鼠标指针移动到元素上时触发。|
+|onmouseleave|当鼠标指针移出元素时触发|  
+|onmousemove|鼠标被移动。|
+|onmouseover|鼠标移到某元素之上|
+|onmouseout|鼠标从某元素移开|
+
+
+|键盘事件|描述|  
+|:---|:---|
+|onkeydown|某个键盘按键被按下。|
+|onkeypress|某个键盘按键被按下并松开。|
+|onkeyup|某个键盘按键被松开。|
+
+|框架/对象（Frame/Object）事件|描述|  
+|:---|:---|
+|onabort|图像的加载被中断。 ( \<object>)|
+|onerror|在加载文档或图像时发生错误。 (\<object>, \<body>和 \<frameset>)|
+|onbeforeunload|在即将离开页面（刷新或关闭）时触发|
+|onhashchange|在当前 URL 的锚部分发生修改时触发。|
+|onload|一张页面或一幅图像完成加载|
+|onpageshow|在用户访问页面时触发。|
+|onpagehide|该事件在用户离开当前网页跳转到另外一个页面时触发|
+|onresize|窗口或框架被重新调整大小。|
+|onscroll|当文档被滚动时发生的事件。|
+|onunload|用户退出页面。 ( \<body> 和 \<frameset>)|
+
+|框架/对象（Frame/Object）事件|描述|  
+|:---|:---|
+|onblur|元素失去焦点时触发|
+|onfocus|元素获取焦点时触发|
+|onfocusin|	元素即将获取焦点时触发|
+|onfocusout|元素即将失去焦点时触发|
+|onchange|在表单元素的内容改变时触发( \<input>,\ <keygen>,\ <select>, 和 \<textarea>)|
+|oninput|元素获取用户输入时触发|
+|onreset|表单重置时触发|
+|onsearch|用户向搜索域输入文本时触发 ( \<input="search">)|
+|onselect|用户选取文本时触发 ( \<input> 和 \<textarea>)|
+|onsubmit|表单提交时触发|
+||图像已加载时|
+||输入字段被改变时|
+||提交 HTML 表单时|
+
+*2.1 onload 和 onunload 事件*  
+onload 和 onunload 事件会在用户进入或离开页面是触发。  
+onload 事件可以用于检测访问者的浏览器类型和浏览器版本，并基于这些信息来加载网页的正确版本。  
+onload 和 onunload 事件可用于处理 cookie。  
+
+**实例：**
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<body onload="checkCookies()">
+
+<script>
+function checkCookies(){
+	if (navigator.cookieEnabled==true){
+		alert("Cookies 可用")
+	}
+	else{
+		alert("Cookies 不可用")
+	}
+}
+</script>
+<p>弹窗-提示浏览器 cookie 是否可用。</p>
+	
+</body>
+</html>
+```
+
+*2.2 onchange 事件*  
+onchange 事件常结合对输入字段的验证来使用。  
+**实例**
+```html
+<!-- 当用户改变输入字段的内容时，会调用 upperCase() 函数。 -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<head>
+<script>
+function myFunction(){
+	var x=document.getElementById("fname");
+	x.value=x.value.toUpperCase();
+}
+</script>
+</head>
+<body>
+
+输入你的名字: <input type="text" id="fname" onchange="myFunction()">
+<p>当你离开输入框后，函数将被触发，将小写字母转为大写字母。</p>
+
+</body>
+</html>
+```  
+*2.3 onmouseover 和 onmouseout  事件*  
+onmouseover 和 onmouseout 事件可用于在用户的鼠标移至 HTML 元素上方或移出元素时触发函数。  
+**实例**
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<body>
+
+<div onmouseover="mOver(this)" onmouseout="mOut(this)" 
+  style="background-color:#D94A38;width:120px;height:20px;padding:40px;"
+>Mouse Over Me
+</div>
+<script>
+function mOver(obj){
+	obj.innerHTML="Thank You"
+}
+function mOut(obj){
+	obj.innerHTML="Mouse Over Me"
+}
+</script>
+</body>
+</html>
+```
+
+*2.4 onmousedown、onmouseup 以及 onclick 事件*  
+onmousedown, onmouseup 以及 onclick 构成了鼠标点击事件的所有部分。  
+首先当点击鼠标按钮时，会触发 onmousedown 事件，当释放鼠标按钮时，会触发 onmouseup 事件，最后，当完成鼠标点击时，会触发 onclick 事件。  
+**实例**
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<head>
+<script>
+function lighton(){
+	document.getElementById('myimage').src="bulbon.gif";
+}
+function lightoff(){
+	document.getElementById('myimage').src="bulboff.gif";
+}
+</script>
+</head>
+
+<body>
+<img id="myimage" onmousedown="lighton()" onmouseup="lightoff()" src="bulboff.gif" width="100" height="180" />
+<p>点击不释放鼠标灯将一直亮着!</p>
+</body>
+</html>
+```
+###### 3. HTML 事件属性  
+**实例1：**
+```html
+<!-- 向 button 元素分配 onclick 事件： -->
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset="utf-8"> 
+<title>菜鸟教程(runoob.com)</title> 
+</head>
+<body>
+<p>点击按钮执行 <em>displayDate()</em> 函数.</p>
+<button onclick="displayDate()">点这里</button>
+<script>
+function displayDate(){
+	document.getElementById("demo").innerHTML=Date();
+}
+</script>
+<p id="demo"></p>
+
+</body>
+</html>
+```
+
+**实例2：使用 HTML DOM 来分配事件**
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<head>
+</head>
+<body>
+
+<p>点击按钮执行 <em>displayDate()</em> 函数.</p>
+<button id="myBtn">点这里</button>
+<script>
+document.getElementById("myBtn").onclick=function(){displayDate()};
+function displayDate(){
+	document.getElementById("demo").innerHTML=Date();
+}
+</script>
+<p id="demo"></p>
+
+</body>
+</html>
+
+```
+
+###### 4. JavaScript HTML DOM EventListener  
+
+1. addEventListener() 方法  
+addEventListener() 用于向指定元素添加事件句柄。  
+addEventListener() 方法添加的事件句柄不会覆盖已存在的事件句柄。  
+可以向一个元素添加多个事件句柄。  
+可以向同个元素添加多个同类型的事件句柄，如：两个 "click" 事件。 且不会覆盖已存在的事件：
+可以向任何 DOM 对象添加事件监听，不仅仅是 HTML 元素。如： window 对象。  
+addEventListener() 方法 可以更简单的控制事件（冒泡与捕获）。  
+使用 addEventListener() 方法时, JavaScript 从 HTML 标记中分离开来，可读性更强， 在没有控制HTML标记时也可以添加事件监听。  
+可以使用 removeEventListener() 方法来移除事件的监听。  
+2. 语法 
+element.addEventListener(event, function, useCapture);  
+*说明*  
+第一个参数是事件的类型 (如 "click" 或 "mousedown").  
+第二个参数是事件触发后调用的函数。  
+第三个参数是个布尔值用于描述事件是冒泡还是捕获。该参数是可选的。  
+**注意:不要使用 "on" 前缀。 例如，使用 "click" ,而不是使用 "onclick"。**  
+**实例1：**
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<body>
+
+<p>该实例使用 addEventListener() 方法在按钮中添加点击事件。 </p>
+<button id="myBtn">点我</button>
+<p id="demo"></p>
+<script>
+document.getElementById("myBtn").addEventListener("click", displayDate); // 使用函数名，来引用外部函数:
+function displayDate() {
+    document.getElementById("demo").innerHTML = Date();
+}
+</script>
+
+</body>
+</html>
+```
+
+**实例2：向 Window 对象添加事件句柄**
+```html
+<!-- addEventListener() 方法允许你在 HTML DOM 对象添加事件监听 -->
+<!-- HTML DOM 对象如： HTML 元素, HTML 文档, window 对象。或者其他支持的事件对象如: xmlHttpRequest 对象。 -->
+
+<!-- 当用户重置窗口大小时添加事件监听 -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<body>
+
+<p>实例在 window 对象中使用 addEventListener() 方法。</p>
+<p>尝试重置浏览器的窗口触发 "resize" 事件句柄。</p>
+<p id="demo"></p>
+<script>
+window.addEventListener("resize", function(){
+    document.getElementById("demo").innerHTML = Math.random();
+});
+</script>
+
+</body>
+</html>
+
+```
+
+4. 传递参数
+当传递参数值时，使用"匿名函数"调用带参数的函数：
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<body>
+
+<p>实例演示了在使用 addEventListener() 方法时如何传递参数。</p>
+<p>点击按钮执行计算。</p>
+<button id="myBtn">点我</button>
+<p id="demo"></p>
+<script>
+var p1 = 5;
+var p2 = 7;
+document.getElementById("myBtn").addEventListener("click", function() {
+    myFunction(p1, p2);
+});
+function myFunction(a, b) {
+    var result = a * b;
+    document.getElementById("demo").innerHTML = result;
+}
+</script>
+
+</body>
+</html>
+```  
+
+5. 事件冒泡 或 事件捕获 
+事件传递有两种方式：冒泡 与 捕获  
+事件传递定义了元素事件触发的顺序。  
+如果你将 \<p> 元素插入到 \<div> 元素中，用户点击 \<p> 元素, 哪个元素的 "click" 事件先被触发呢？  
+在**冒泡**中，内部元素的事件会先被触发，然后再触发外部元素，即： \<p> 元素的点击事件先触发，然后会触发 \<div> 元素的点击事件。  
+在<b>捕获</b>中，外部元素的事件会先被触发，然后才会触发内部元素的事件，即： \<div> 元素的点击事件先触发 ，然后再触发 \<p> 元素的点击事件。  
+addEventListener() 方法可以指定 "useCapture" 参数来设置传递类型：  
+addEventListener(event, function, useCapture);  
+默认值为 false, 即冒泡传递，当值为 true 时, 事件使用捕获传递。  
+
+6. removeEventListener() 方法  
+removeEventListener() 方法移除由 addEventListener() 方法添加的事件句柄:  
+**语法**
+element.removeEventListener(event, function);  
+
+**PS：浏览器支持**
+IE 8 及更早 IE 版本，Opera 7.0及其更早版本不支持 addEventListener() 和 removeEventListener() 方法。  
+但是，对于这类浏览器版本可以使用attachEvent()添加事件句柄 和  detachEvent() 方法来移除事件句柄。  
+element.attachEvent(event, function);  
+element.detachEvent(event, function);  
+
+```javascript
+// 跨浏览器解决方案
+var x = document.getElementById('');
+if(x.addEventListener){
+  x.addEventListener("click","myFunction");
+}
+else if(x.attachEvent) {
+  x.attachEvent("onclick","myFunction");
+}
+
+```
+
+#### IV JavaScript HTML DOM 元素  
+如何向文档中添加和移除元素(节点)。  
+
+**4.1 创建新的 HTML 元素 (节点) - appendChild() - 添加新元素到尾部**  
+```html
+<!-- 要创建新的 HTML 元素 (节点)需要先创建一个元素，然后在已存在的元素中添加它。 -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<body>
+
+<div id="div1">
+<p id="p1">这是一个段落。</p>
+<p id="p2">这是另外一个段落。</p>
+</div>
+ 
+<script>
+var para = document.createElement("p"); // 创建 <p> 元素:
+var node = document.createTextNode("这是一个新的段落。"); // 为 <p> 元素创建一个新的文本节点
+para.appendChild(node); // 文本节点添加到 <p> 元素中
+ 
+var element = document.getElementById("div1");
+element.appendChild(para);  // 在一个已存在的元素中添加 p 元素。
+</script>
+
+</body>
+</html>
+```
+**4.2 创建新的 HTML 元素 (节点) - insertBefore() - 将新元素添加到指定位置**  
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<body>
+
+<div id="div1">
+<p id="p1">这是一个段落。</p>
+<p id="p2">这是另外一个段落。</p>
+</div>
+ 
+<script>
+var para = document.createElement("p");
+var node = document.createTextNode("这是一个新的段落。");
+para.appendChild(node);
+ 
+var element = document.getElementById("div1");
+var child = document.getElementById("p1");
+element.insertBefore(para, child);
+</script>
+
+</body>
+</html>
+```
+
+**4.3 移除已存在的元素**  
+要移除一个元素，你需要知道该元素的父元素。  
+```html
+<!-- DOM 需要清楚您需要删除的元素，以及它的父元素。 -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<body>
+
+<div id="div1">
+<p id="p1">这是一个段落。</p>
+<p id="p2">这是另外一个段落。</p>
+</div>
+ 
+<script>
+var parent = document.getElementById("div1");
+var child = document.getElementById("p1");
+parent.removeChild(child);
+</script>
+
+</body>
+</html>
+```
+**注意：** 早期的 Internet Explorer 浏览器不支持 node.remove() 方法。
+
+```javascript
+//以下代码是已知要查找的子元素，然后查找其父元素，再删除这个子元素（删除节点必须知道父节点）
+var child = document.getElementById("p1");
+child.parentNode.removeChild(child);
+```
+
+**4.4 替换 HTML 元素 - replaceChild()**  
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<body>
+
+<div id="div1">
+<p id="p1">这是一个段落。</p>
+<p id="p2">这是另外一个段落。</p>
+</div>
+ 
+<script>
+var para = document.createElement("p");
+var node = document.createTextNode("这是一个新的段落。");
+para.appendChild(node);
+ 
+var parent = document.getElementById("div1");
+var oldChild = document.getElementById("p1");
+parent.replaceChild(para, oldChild);
+</script>
+
+</body>
+</html>
+```
+
+#### V JavaScript HTML DOM 集合(Collection)  
+
+###### 5.1 HTMLCollection 对象  
+getElementsByTagName() 方法返回 HTMLCollection 对象。  
+HTMLCollection 对象类似包含 HTML 元素的一个数组。  
+###### 5.2 HTMLCollection 对象 length 属性
+HTMLCollection 对象的 length 属性定义了集合中元素的数量。  
+集合 length 属性常用于遍历集合中的元素  
+```javascript
+var myCollection = document.getElementsByTagName("p");
+let i;
+for (i = 0; i < myCollection.length; i++) {
+    myCollection[i].style.backgroundColor = "red";
+}
+```
+**PS:** HTMLCollection 不是一个数组！  
+HTMLCollection 看起来可能是一个数组，但其实不是。  
+可以像数组一样，使用索引来获取元素。HTMLCollection 无法使用数组的方法： valueOf(), pop(), push(), 或 join() 。  
+
+#### VI JavaScript HTML DOM 节点列表（NodeList）  
+NodeList 对象是一个从文档中获取的节点列表 (集合) 。  
+NodeList 对象类似 HTMLCollection 对象。  
+一些旧版本浏览器中的方法（如：getElementsByClassName()）返回的是 NodeList 对象，而不是 HTMLCollection 对象。  
+所有浏览器的 childNodes 属性返回的是 NodeList 对象。  
+大部分浏览器的 querySelectorAll() 返回 NodeList 对象。  
+
+**6.1 NodeList 对象 length 属性**  
+NodeList 对象 length 属性定义了节点列表中元素的数量。  
+
+**6.2 HTMLCollection 与 NodeList 的区别**  
+>1. HTMLCollection 是 HTML 元素的集合。
+>2. NodeList 是一个文档节点的集合。
+>3. HTMLCollection 元素可以通过 name，id 或索引来获取。
+>4. NodeList 只能通过索引来获取。
+>5. 只有 NodeList 对象有包含属性节点和文本节点。
+>6. NodeList 与 HTMLCollection 都与数组对象有点类似，可以使用索引 (0, 1, 2, 3, 4, ...) 来获取元素。
+>7. NodeList 与 HTMLCollection 都有 length 属性。
+>8. 两者都是动态集合。唯一有区别的是querySelectorAll方法返回的是NodeList，且是**静态的**，不会随着文档节点的增删改变。 querySelectorAll().length 不会随着元素的删除改变，getElementsByTagName().length 会实时变动。  
+
+___
+
+
+### 五、 JS 高级教程 2022-04-18
+
+#### I JavaScript 对象  
+JavaScript 中的所有事物都是对象：字符串、数值、数组、函数...  
+此外，JavaScript 允许自定义对象。  
+对象只是一种特殊的数据。对象拥有属性和方法。  
+**JS内置对象:**
+|对象|描述|
+|:---|:---|
+|Argument|函数参数集合|
+|Array|数组|
+|Boolean|布尔对象|
+|Date|日期|
+|Error|异常对象|
+|Function|函数构造器|
+|Math|数学|
+|Number|数值|
+|Object|基础对象|
+|RegExp|正则|
+|String|字符串|
+###### 5.1.1 所有事物都是对象  
+JavaScript 提供多个内建对象，比如 String、Date、Array 等等。 对象只是带有属性和方法的特殊数据类型。  
+###### 5.1.2 创建 JavaScript 对象  
+通过 JavaScript，您能够定义并创建自己的对象。  
+创建新对象有两种不同的方法：  
+  * 使用 Object 定义并创建对象的实例。
+  * 使用函数来定义对象，然后创建新的对象实例。  
+>1. 使用 Object  
+> 在 JavaScript 中，几乎所有的对象都是 Object 类型的实例，它们都会从 Object.prototype 继承属性和方法。  
+> Object 构造函数创建一个对象包装器。
+> Object 构造函数，会根据给定的参数创建对象，具体有以下情况：
+> * 如果给定值是 null 或 undefined，将会创建并返回一个空对象。
+> * 如果传进去的是一个基本类型的值，则会构造其包装类型的对象。
+> * 如果传进去的是引用类型的值，仍然会返回这个值，经他们复制的变量保有和源对象相同的引用地址。  
+> * 当以非构造函数形式被调用时，Object 的行为等同于 new Object()。  
+> 语法：new Object([value]) // 以构造函数形式来调用, value 可以是任何值。
+> var o = new Object(true); // 等价于 o = new Boolean(true);
+```javascript
+// 创建了对象的一个新实例，并向其添加了四个属性
+person=new Object();
+person.firstname="John";
+person.lastname="Doe";
+person.age=50;
+person.eyecolor="blue";
+```
+也可以使用对象字面量来创建对象，语法格式如下:
+* { name1 : value1, name2 : value2,...nameN : valueN }  
+
+> 2. 使用对象构造器  
+```javascript
+    // 使用函数来构造对象：
+    function person(firstname,lastname,age,eyecolor)
+    {
+        this.firstname=firstname;
+        this.lastname=lastname;
+        this.age=age;
+        this.eyecolor=eyecolor;
+    }
+    myFather=new person("John","Doe",50,"blue"); // 创建 JavaScript 对象实例
+
+    // 把属性添加到 JavaScript 对象
+    // 假设 person 对象已存在 - 您可以为其添加这些新属性：firstname、lastname、age 以及 eyecolor：
+    person.firstname="John";
+    person.lastname="Doe";
+    person.age=30;
+    person.eyecolor="blue";
+
+    x=person.firstname;
+    console.log(x); // John
+
+    // 把方法添加到 JavaScript 对象
+    // 方法只不过是附加在对象上的函数。
+    // 在构造器函数内部定义对象的方法：
+    function person(firstname,lastname,age,eyecolor)
+    {
+        this.firstname=firstname;
+        this.lastname=lastname;
+        this.age=age;
+        this.eyecolor=eyecolor;
+
+        this.changeName=changeName;
+        function changeName(name) // changeName() 函数 name 的值赋给 person 的 lastname 属性。
+        {
+            this.lastname=name;
+        }
+    }
+```
+###### 5.1.3 JavaScript 类  
+JavaScript 是面向对象的语言，但 JavaScript 不使用类。  
+在 JavaScript 中，不会创建类，也不会通过类来创建对象（就像在其他面向对象的语言中那样）。  
+JavaScript 基于 prototype，而不是基于类的。  
+###### 5.1.4 JavaScript for...in 循环
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<body>
+	
+<p>点击下面的按钮，循环遍历对象 "person" 的属性。</p>
+<button onclick="myFunction()">点击这里</button>
+<p id="demo"></p>
+<script>
+function myFunction(){
+	var x;
+	var txt="";
+	var person={fname:"Bill",lname:"Gates",age:56}; 
+	for (x in person){
+		txt=txt + person[x];
+	}
+	document.getElementById("demo").innerHTML=txt; // BillGates56
+}
+</script>
+	
+</body>
+</html>
+```
+###### 5.1.4 JavaScript 的对象是可变的  
+对象是可变的，它们是通过**引用**来传递的。  
+```javascript
+var x = person;  // 不会创建 person 的副本，是引用
+// 如果修改 x ，person 的属性也会改变：
+var person = {firstName:"John", lastName:"Doe", age:50, eyeColor:"blue"}
+var x = person;
+x.age = 10;           //  x.age 和 person.age 都会改变
+
+```
+
+#### II JavaScript prototype(原型对象)  
+所有的 JavaScript 对象都会从一个 prototype（原型对象）中继承属性和方法。  
+在前面的章节中我们学会了如何使用对象的构造器（constructor）：  
+```javascript
+function Person(first, last, age, eyecolor) {
+  this.firstName = first;
+  this.lastName = last;
+  this.age = age;
+  this.eyeColor = eyecolor;
+}
+var myFather = new Person("John", "Doe", 50, "blue");
+var myMother = new Person("Sally", "Rally", 48, "green");
+```
+我们也知道在一个已存在构造器的对象中是不能添加新的属性：
+```javascript
+Person.nationality = "English"; // 报错
+```
+要添加一个新的属性需要在在构造器函数中添加：
+```javascript
+function Person(first, last, age, eyecolor) {
+  this.firstName = first;
+  this.lastName = last;
+  this.age = age;
+  this.eyeColor = eyecolor;
+  this.nationality = "English";
+}
+```
+###### 1. prototype 继承  
+所有的JavaScript 对象都会从一个prototype（原型对象）中继承属性和方法。  
+* Date 对象从 Date.prototype 继承
+* Array 对象从 Array.prototype 继承
+* Person 对象从 Person.prototype 继承
+
+所有的JavaScript 中的对象都是位于原型链顶端的的Object实例。  
+JavaScript 对象有一个指向原型对象的链。当试图访问一个对象的属性时，它不仅仅在该对象上搜寻，还会搜寻该对象的原型，以及该对象的原型的原型，依次层层向上搜寻，直到找到一个名字匹配的属性或达到原型链的末尾。  
+Date 对象, Array 对象, 以及 Person 对象从 Object.prototype 继承。  
+
+###### 2. 添加属性和方法  
+有时候我们想要在所有已存在的对象添加新的属性或方法。  
+另外，有时候我们想在对象的构造函数中添加新的属性或方法。 
+**格式：**构造函数.prototype.新属性或方法
+使用 prototype 属性就可以给对象的构造函数添加新的属性。  
+```javascript
+function Person(first, last, age, eyecolor) {
+  this.firstName = first;
+  this.lastName = last;
+  this.age = age;
+  this.eyeColor = eyecolor;
+}
+// 在不直接修改对象的构造器（constructor）的基础上，使用prototype添加新属性nationality 
+Person.prototype.nationality = "English";
+// 或则添加新的方法
+Person.prototype.name = function() {return this.firstName + " " + this.lastName;};
+```
+
+#### III JavaScript Number 对象  
+JavaScript 只有一种数字类型。  
+可以使用也可以不使用小数点来书写数字。  
+```javascript
+var pi=3.14;    // 使用小数点
+var x=34;       // 不使用小数点
+var y=123e5;    // 12300000
+var z=123e-5;   // 0.00123
+```
+**所有 JavaScript 数字均为 64 位**  
+* 精度:  
+```javascript
+// 整数（不使用小数点或指数计数法）最多为 15 位。
+var x = 999999999999999;   // x 为 999999999999999
+var y = 9999999999999999;  // y 为 10000000000000000
+// 小数的最大位数是 17，但是浮点运算并不总是 100% 准确：
+var x = 0.2+0.1; // 输出结果为 0.30000000000000004
+```
+* 八进制和十六进制
+```javascript 
+// 如果前缀为 0，则 JavaScript 会把数值常量解释为八进制数，如果前缀为 0 和 "x"，则解释为十六进制数。
+var y = 0377;
+var z = 0xFF;
+// 绝不要在数字前面写零，除非您需要进行八进制转换。 
+
+// 默认情况下，JavaScript 数字为十进制显示。
+// 你可以使用 toString() 方法 输出16进制、8进制、2进制。
+var myNumber=128;
+myNumber.toString(16);   // 返回 80
+myNumber.toString(8);    // 返回 200
+myNumber.toString(2);    // 返回 10000000
+```
+
+* 无穷大 Infinity  
+当数字运算结果超过了JavaScript所能表示的数字上限（溢出），结果为一个特殊的无穷大（infinity）值，在JavaScript中以Infinity表示。  
+当负数的值超过了JavaScript所能表示的负数范围，结果为负无穷大，在JavaScript中以-Infinity表示。  
+无穷大值的行为特性和我们所期望的是一致的：基于它们的加、减、乘和除运算结果还是无穷大（当然还保留它们的正负号）。  
+```javascript
+// 除以0也产生了无限:
+var x = 2/0;
+var y = -2/0;
+var z = 0/0; // NaN
+```
+
+* NaN - 非数字值  
+NaN 属性是代表非数字值的特殊值。  
+该属性用于指示某个值不是数字。可以把 Number 对象设置为该值，来指示其不是数字值。  
+可以使用 isNaN() 全局函数来判断一个值是否是 NaN 值。  
+```javascript
+var x = 1000 / "Apple";
+isNaN(x); // 返回 true
+var y = 100 / "1000";
+isNaN(y); // 返回 false
+```
+######  1. Number 属性  
+|属性|描述|
+|:---|:---|
+|Number.MAX_VALUE|最大值|
+|Number.MIN_VALUE|最小值|  
+|Number.NaN|非数字|
+|Number.POSITIVE_INFINITY|正无穷，在溢出时返回|
+|Number.NEGATIVE_INFINITY|负无穷，在溢出时返回|
+|Number.EPSILON|表示 1 和比最接近 1 且大于 1 的最小 Number 之间的差别|
+|Number.MAX_SAFE_INTEGER|最大安全整数。|
+|Number.MIN_SAFE_INTEGER|最小安全整数。|
+
+###### 2. Number 数字方法
+|方法|描述|
+|:---|:---|
+|Number.parseFloat()|将字符串转换成浮点数，和全局方法 parseFloat() 作用一致。|
+|Number.parseInt()|将字符串转换成整型数字，和全局方法 parseInt() 作用一致。|
+|Number.isFinite()|判断传递的参数是否为有限数字。|
+|Number.isInteger()|判断传递的参数是否为整数。|
+|Number.isNaN()|判断传递的参数是否为NaN。|
+|Number.isSafeInteger()|判断传递的参数是否为安全整数。|
+
+
+#### IV JavaScript String 对象  
+* 特殊字符  
+
+|代码|输出|
+|:---|:---|
+|\\'|单引号|
+|\\"|双引号|
+|\\\\|斜杆|
+|\\n|换行|
+|\\r|回车|
+|\\t|	tab|
+|\\b|空格|
+|\\f|换页|
+
+#### V JavaScript Date  日期对象  
+日期对象用于处理日期和时间。  
+<a href = "https://www.runoob.com/jsref/jsref-obj-date.html ">详情链接</a>  
+
+#### VI JavaScript Array 数组对象 
+数组对象的作用是：使用单独的变量名来存储一系列的值。  
+* 在一个数组中你可以有不同的对象，可以在数组中有不同的变量类型。
+
+###### 1. 创建数组  
+① 常规方式：    
+```javascript
+var myCars=new Array();
+myCars[0]="Saab";      
+myCars[1]="Volvo";
+myCars[2]="BMW";
+```
+② 简洁方式：
+```javascript
+var myCars=new Array("Saab","Volvo","BMW");
+```
+③ 字面：
+```javascript
+var myCars = ["Saab","Volvo","BMW"];
+```
+不推荐使用new关键字创建数组，所以一般使用③  
+
+###### 2. 数组方法和属性
+***属性***
+|属性|描述|
+|:---|:---|
+|constructor|返回数组对象的原型函数|
+|length|设置或返回数组元素的个数|
+|prototype|允许向数组对象添加属性或方法|
+```javascript
+// 创建一个新的方法：用于将数组小写字符转为大写字符。
+Array.prototype.myUpperCase = function() {
+  for(i = 0; i < this.length; i++){
+    this[i] = this[i].toUpperCase();
+  }
+}
+```
+**方法**
+|方法|描述|
+|:---|:---|
+|concat()|连接两个或多个数组，并返回结果|
+|copyWithin()|从数组指定位置拷贝元素到数组的另一个指定位置中|
+|entries()|返回数组的可迭代对象|
+|every()| 检测数组的每一个元素是否都符合条件（通过函数提供），every() 方法使用指定函数检测数组中的所有元素，出现false直接返回，剩余不在校验|
+|some()|检测数组中元素是否有符合指定条件的，如果有一个元素满足条件，则表达式返回true , 剩余的元素不会再执行检测。如果没有满足条件的元素，则返回false。|
+|fill()| 使用一个固定值来填充数组，fill(value必填, start, end)|
+|filter()|检测数值元素，并返回符合条所有元素的数组|
+|find()|返回符合传入测试（函数）条件的数组元素|
+|findIndex()|返回符合传入测试（函数）条件的数组元素索引|
+|forEach()|数组的每一个函数都执行一次回调函数|
+|map()|通过指定函数处理数组中的元素，并返回处理后的数组|
+|from()|通过给定的对象中创建一个数组|
+|includes()|判断一个数组中是否包含一个指定的值。|
+|indexOf()|搜索数组中元素，并返回它在数组中的位置。返回 item 的第一次出现的位置。没找到指定元素则返回 -1。|
+|lastIndexOf()|搜索数组中元素，并返回它在数组中最后出现的位置，后面向前查找。|
+|isArray()|判断对象是否是数组。如果对象是数组返回 true，否则返回 false。|
+|join()|把数组中的元素组合成一个字符串|
+|keys()|返回数组的可迭代对象，包含原始数组的键（key）|
+|shift()|删除并返回数组的第一个元素|
+|unshift()|向数组的头部添加一个或多个元素，并返回之后的长度|
+|pop()|删除数组的最后一个元素，并返回元素值|
+|push()| 向数组的尾部添加一个或多个元素，并返回之后的长度|
+|reduce()|将数组元素计算成一个值（左->右）|
+|reduceRight()|将数组元素计算为一个值（从右到左）。|
+|reverse()|反转数组的元素顺序|
+|slice()|选取数组的一部分，并返回一个新的数组|
+|sort()|对数组元素进行排序，默认升序|
+|splice()|从数组中添加或者删除元素|
+|toString()|将数组转换成字符串，并返回结果|
+|valeOf()|返回数组对象的原始值|
+
+**部分方法详解**
+① copyWithin()  
+array.copyWithin(target, start, end)
+target  必需。复制到指定目标索引位置。  
+start   可选。元素复制的起始位置。  
+end     可选。停止复制的索引位置 (默认为 array.length)。如果为负值，表示倒数。  
+```javascript
+var fruits = ["Banana", "Orange", "Apple", "Mango"];
+fruits.copyWithin(2, 0);  // Banana,Orange,Banana,Orange
+```
+
+② filter() 方法创建一个新的数组，新数组中的元素是通过检查指定数组中符合条件的所有元素。如果没有符合条件的元素则返回空数组。
+* filter() 不会对空数组进行检测。
+* filter() 不会改变原始数组。
+array.filter(function(currentValue,index,arr), thisValue)  
+function(currentValue, index,arr)   必须。函数，数组中的每个元素都会执行这个函数。函数参数:currentValue必须。当前元素的值；index可选。当前元素的索引值；arr可选。当前元素属于的数组对象。  
+thisValue   可选。对象作为该执行回调时使用，传递给函数，用作 "this" 的值。如果省略了 thisValue ，"this" 的值为 "undefined"。
+```javascript
+var ages = [32, 33, 16, 40];
+function checkAdult(age) {
+    return age >= 18;
+}
+console.log(ages.filter(checkAdult)); // 32,33,40
+```
+
+③find()  方法返回通过测试（函数内判断）的数组的第一个元素的值。  
+find() 方法为数组中的每个元素都调用一次函数执行：  
+* 当数组中的元素在测试条件时返回 true 时, find() 返回符合条件的元素，之后的值不会再调用执行函数。  
+* 如果没有符合条件的元素返回 undefined  
+array.find(function(currentValue, index, arr),thisValue)  
+```javascript
+var ages = [3, 10, 18, 20];
+ 
+function checkAdult(age) {
+    return age >= 18;
+}
+console.log(ages.find(checkAdult)); // 18
+```
+
+④ findIndex() 方法返回传入一个测试条件（函数）符合条件的数组第一个元素位置（索引）。  
+
+⑤ foreEach() 方法用于调用数组的每个元素，并将元素传递给回调函数。 
+* 在forEach中使用 return false 或者 break无法跳出整个循环，并且使用break会直接报错  
+* 没有返回值 
+* forEach方法无法中断执行，总是会将所有成员遍历完。
+* forEach方法不会跳过 undefined 和 null，但会跳过空位。
+* forEach方法也可以用于类似数组的对象和字符串。
+array.forEach(function(currentValue, index, arr), thisValue)
+```javascript
+// 数组
+var out = [];
+[1,2,3].forEach(function(elem){ this.push(elem * elem);} , out);
+console.log(out); // [1, 4, 9]
+
+// 对象
+var obj = {
+        0: 1,
+        a: 'hello',
+        length: 1
+      }
+Array.prototype.forEach.call(obj,function(elem, index) { console.log(index + ':' + elem);});
+// 0:1
+
+// 字符串
+var str = 'abc'
+Array.prototype.forEach.call(str,function(elem, index) { console.log(index + ':' + elem);});
+// 0:a
+// 1:b
+// 2:c
+
+```
+
+⑥map() 方法返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值。  
+* map() 方法按照原始数组元素顺序依次处理元素。 
+array.map(function(currentValue,index,arr), thisValue)  
+```javascript
+var arr = [4,9,16,25];
+var x = arr.map(Math.sqrt);
+console.log(x); // [2,3,4,5]
+```  
+
+⑦ slice() 方法可以从也有数组中返回选定的元素。  
+* slice() 方法可提取字符串的某个部分，并以新的字符串返回被提取的部分。
+* slice() 方法不会改变原始数组。   
+array.slice(start, end) 选取区间 [start , end) 不包含end
+start 可选。规定从何处开始选取。如果该参数为负数，则表示从原数组中的倒数第几个元素开始提取，slice(-2) 表示提取原数组中的倒数第二个元素到最后一个元素（包含最后一个元素）。  
+end 可选。规定从何处结束选取。该参数是数组片断结束处的数组下标。如果没有指定该参数，那么切分的数组包含从 start 到数组结束的所有元素。如果该参数为负数， 则它表示在原数组中的倒数第几个元素结束抽取。   
+* slice(-2,-1) 表示抽取了原数组中的倒数第二个元素到最后一个元素（不包含最后一个元素，也就是只有倒数第二个元素）。
+* slice方法的一个重要应用，是将类似数组的对象转为真正的数组。
+```javascript
+var fruits = ["Banana", "Orange", "Lemon", "Apple", "Mango"];
+var citrus = fruits.slice(1,3);
+console.log(citrus);  // Orange,Lemon
+```
+
+⑧splice() 方法用于删除或添加数组中的元素。  
+* splice() 方法会改变原始数组。  
+**语法**
+array.splice(index,howmany,item1,.....,itemX)  
+index 必需。规定从何处添加/删除元素。该参数是开始插入和（或）删除的数组元素的下标，必须是数字。  
+howmany 可选。规定应该删除多少元素。必须是数字，但可以是 "0"。如果未规定此参数，则删除从 index 开始到原数组结尾的所有元素。  
+item1, ..., itemX	  可选。要添加到数组的新元素  
+**返回值**
+删除：  Array 如果从 arrayObject 中删除了元素，则返回的是含有被删除的元素的数组。如果未删除任何元素，则返回空数组。
+添加：  Array 返回添加元素之后的数组
+```javascript
+// 删除
+var fruits1 = ["Banana", "Orange", "Apple", "Mango"];
+fruits1.splice(2,1);
+console.log(fruits1.splice(2,1)); // ['Apple']
+console.log(fruits1);   // ['Banana', 'Orange', 'Mango']
+
+var fruits2 = ["Banana", "Orange", "Apple", "Mango"];
+fruits2.splice(2,0);
+console.log(fruits2.splice(2,0)); // []
+console.log(fruits2);   // ["Banana", "Orange", "Apple", "Mango"]
+
+// 添加
+var fruits = ["Banana", "Orange", "Apple", "Mango"];
+fruits.splice(2,0,"Lemon","Kiwi");
+console.log(fruits); //  ['Banana', 'Orange', 'Lemon', 'Kiwi', 'Apple', 'Mango']
+```  
+
+#### VI JavaScript Boolean 布尔对象  
+Boolean（布尔）对象用于将非布尔值转换为布尔值（true 或者 false）。  
+> 0 为布尔值 false
+> 1 为布尔值 true
+> 空字符串是布尔值 false
+> null 是布尔值 false
+> NaN 是布尔值 false
+> 字符串'false' 是布尔值true  
+
+**如果布尔对象无初始值或者其值为:0 -0 null "" false undefined NaN 那么对象的值为 false。否则，其值为 true（即使当变量值为字符串 "false" 时）！**  
+
+#### VII JavaScript Math 算数对象  
+Math 算数对象，用于执行常见的算数任务。  
+* 该对象没有构造函数 Math()。  
+**Math 对象属性**  
+
+|属性|描述|
+|:---|:---|
+|E|返回算术常量 e，即自然对数的底数（约等于2.718）。|
+|LN2|返回 2 的自然对数（约等于0.693）。| 
+|LN10|返回 10 的自然对数（约等于2.302）。| 
+|LOG2E|	返回以 2 为底的 e 的对数（约等于 1.4426950408889634）。|  
+|LOG10E|返回以 10 为底的 e 的对数（约等于0.434）。|  
+|PI|返回圆周率（约等于3.14159）。|  
+|SQRT1_2|返回 2 的平方根的倒数（约等于 0.707）。|
+|SQRT2|返回 2 的平方根（约等于 1.414）。|  
+
+**Math 方法**  
+|方法|描述|
+|:---|:---|
+|abs(x)|返回 x 的绝对值。|
+|ceil(x)|对数进行上舍入。向上取整计算，它返回的是大于或等于函数参数，并且与之最接近的整数。|  
+|floor(x)|对 x 进行下舍入。返回小于等于x的最大整数。|
+|round(x)|四舍五入。把一个数字舍入为最接近的整数。|
+|exp(x)|返回 E<sup>x</sup> 的指数。|
+|pow(x,y)|返回 x 的 y 次幂。x<sup>y</sup>|
+|log(x)|返回数的自然对数（底为e）。|
+|sqrt(x)|返回数的平方根。|
+|max(x,y,z,...,n)|返回 x,y,z,...,n 中的最高值。如果没有参数，则返回 -Infinity。如果有某个参数为 NaN，或是不能转换成数字的非数字值，则返回 NaN。|
+|min(x,y,z,...,n)|返回 x,y,z,...,n中的最低值。|
+|random()|介于 0（包含） ~ 1（不包含） 之间的一个随机数。区间[0,1)|  
+
+① round() 方法可把一个数字舍入为最接近的整数。  
+```javascript
+var a=Math.round(2.60); // 3
+var b=Math.round(2.50); // 3
+var c=Math.round(2.49); // 2
+var d=Math.round(-2.60); // -3
+var e=Math.round(-2.50); // -2
+var f=Math.round(-2.49); // -2
+```
+② random
+```javascript
+// 介于[min.max)
+function getRndInteger(min,max)
+{
+  return (Math.random() * (max - min) + min);
+}
+
+// 介于[min.max]
+function getRndInteger(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) ) + min;
+}
+```
+
+#### IIX JavaScript RegExp 对象  
+RegExp：是正则表达式（regular expression）的简写。  
+###### 1. 语法  
+> var patt=new RegExp(pattern,modifiers);
+> 或更简单的方法
+> var patt=/pattern/modifiers;  
+
+ * 模式(pattern)描述了一个表达式模型。
+ * 修饰符(modifiers)描述了检索是否是全局，区分大小写等。  
+
+**注意：** 当使用构造函数创造正则对象时，需要常规的字符转义规则（在前面加反斜杠 \）。比如，以下是等价的：  
+```javascript
+var re = new RegExp("\\w+");
+var re = /\w+/;
+```  
+
+###### 2. RegExp 修饰符 modifier  
+修饰符用于执行不区分大小写和全文的搜索。  
+* i - 修饰符是用来执行不区分大小写的匹配。  
+* g - 修饰符是用于执行全文的搜索（而不是在找到第一个就停止查找,而是找到所有的匹配）。
+* m - 执行多行匹配。
+
+###### 3. RegExp 方法  
+* exec() 方法用于检索字符串中的正则表达式的匹配。
+RegExpObject.exec(string)
+如果字符串中有匹配的值返回该匹配值，否则返回 null。  
+* test() 方法用于检测一个字符串是否匹配某个模式。  
+如果字符串中有匹配的值返回 true ，否则返回 false。
+
+###### 4. RegExp 对象属性  
+|属性|描述|
+|:---|:---|
+|constructor|返回一个函数，该函数是一个创建 RegExp 对象的原型。|
+|lastIndex|用于规定下次匹配的起始位置|
+|source|返回正则表达式的匹配模式|
+|global|判断是否设置了 "g" 修饰符| 
+|ignoreCase|判断是否设置了 "i" 修饰符|
+|multiline|判断是否设置了 "m" 修饰符|
+
+#### IX JavaScript Error 对象  
+Error 对象在错误发生时提供了错误的提示信息。  
+|属性|描述|
+|:---|:---|
+|name|设置或返回一个错误名|
+|message|设置或返回一个错误信息(字符串)|
+>  * name 属性  
+> name 属性可以返回以下 6 个不同的值。
+> 
+> |错误名|描述|
+> |:---|:---|
+> |EvalError|eval() 函数产生的错误。 注意: 新版的 JavaScript 使用 SyntaxError 替代 EvalError。|
+> |RangeError|数值超出规定的范围|
+> |ReferenceError|非法引用|
+> |SyntaxError|语法错误|
+> |TypeError|类型错误|
+> |URIError|encodeURI() 函数产生的错误|
+
+**实例**
+```javascript
+try {
+    adddlert("Welcome guest!");
+}
+catch(err) {
+    console.log(err.name + ":" + err.message)
+}
+// ReferenceError:adddlert is not defined
+```
+__________
+### 六、 JS 浏览器(Browser) BOM 2022-04-22
+
+#### I  JavaScript Window - 浏览器对象模型  
+浏览器对象模型（Browser Object Module） 使得 JavaScript 有能力和浏览器对话。  
+
+###### 1. window 对象  
+所有的浏览器都支持 window 对象，它表示浏览器窗口。  
+所有 JavaScript 全局对象、函数以及变量均自动称为 window 对象的成员。  
+全局变量是 window 对象的属性。全局函数是 window 对象的方法。  
+甚至 HTML DOM 的 document 也是 window 对象的属性之一：  window.document.getElementById("header");  document.getElementById("header");  
+
+###### 2. window 尺寸  
+有三种方法可以获取浏览器窗口的尺寸。  
+对于Internet Explorer、Chrome、Firefox、Opera 以及 Safari：  
+> window.innerHeight - 浏览器窗口的内部高度（包括滚轮条）
+> window.innerWidth - 浏览器窗口的内部宽度(包括滚动条)  
+
+对于 Internet Explorer 8、7、6、5：  
+> document.documentElement.clientHeight
+> document.documentElement.clientWidth  
+> document.body.clientHeight
+> document.body.clientWidth  
+
+###### 3. 其他window 方法  
+window.open() - 打开新的窗口  
+window.close() - 关闭当前窗口  
+widow.moveTo() - 移动当前窗口  
+window.resizeTo() - 调整当前窗口尺寸  
+
+
+#### II JavaScript Window Screen
+window.screen 对象包含有关用户屏幕的信息。  
+###### 1. window.screen  
+window.screen对象在编写时可以不使用 window 这个前缀。  
+|属性|描述|
+|:---|:---|
+|screen.width|总宽度|
+|screen.height|总高度|
+|screen.availWidth|可用的屏幕宽度，以像素计，减去界面特性，比如窗口任务栏。|
+|screen.availHeight|可用的屏幕高度，以像素计，减去界面特性，比如窗口任务栏。|  
+|screen.colorDepth|色彩深度|
+|screen.pixelDepth|色彩分辨率|
+
+#### III JavaScript Window Location  
+window.location 对象 用于获取当前页面的地址URL，并把浏览器重定向到新的页面。  
+###### window.location
+window.location 对象在编写时可不使用 window 这个前缀。  
+一些例子：  
+|属性|描述|
+|:---|:---|
+|location.hostname|返回 web 主机的域名|
+|location.pathname|返回当前页面的路径和文件名|
+|location.port|返回 web 主机的端口（80 或 433）|
+|location.protocol|返回所使用的 web 协议（http、https）|
+|location.href|返回当前页面的URL|  
+
+|方法|描述|
+|:---|:---|
+|location.assign("url")|加载新的文档|  
+
+
+#### IV JavaScript Window History  
+window.history 对象包含浏览器的历史。  
+
+###### 1. Window History  
+window.history对象在编写时可不使用 window 这个前缀。  
+为了保护用户隐私，对 JavaScript 访问该对象的方法做出了限制。  
+|方法|描述|
+|:---|:---|
+|history.back()|在浏览器点击后退按钮相同，加载历史列表中的前一个URL|
+|history.forward()|与在浏览器中点击向前按钮相同，加载历史列表中的下一个URL|
+|history.go(x)|x = 1表示前进一个页面，相当于forwar()；x = -1表示后退一个页面back()；x = 0表示刷新页面|  
+
+
+#### V JavaScript Window Navigator  
+window.navigator 对象包含有关访问者浏览器的信息。  
+###### 1. Window Navigator
+window.navigator 对象在编写时可不使用 window 这个前缀。
+|属性|描述|
+|:---|:---|
+|navigator.appCodeName|浏览器代号，Mozilla|
+|navigator.appName|浏览器名称，Netscape|
+|navigator.appVersion|浏览器版本|
+|navigator.cookieEnabled|是否启用cookie|
+|navigator.platform|硬件平台|
+|navigator.userAgent|用户代理|
+|navigator.language|用户代理语言|  
+**警告**
+来自 navigator 对象的信息具有误导性，不应该被用于检测浏览器版本，这是因为：  
+* navigator 数据可被浏览器使用者更改  
+* 一些浏览器对测试站点会识别错误
+* 浏览器无法报告晚于浏览器发布的新操作系统
+
+###### 2. 浏览器检测  
+由于 navigator 可误导浏览器检测，使用对象检测可用来嗅探不同的浏览器。  
+由于不同的浏览器支持不同的对象，您可以使用对象来检测浏览器。例如，由于只有 Opera 支持属性 "window.opera"，您可以据此识别出 Opera。  
+**例子**
+```javascript
+if(window.opera){console.log("这是opera浏览器！！");}
+```
+
+#### VI JavaScript 弹框  
+可以在 JavaScript 中创建三种消息框：警告框alert、确认框confirm、提示框prompt。  
+* 警告框
+警告框经常用于确保用户可以得到某些信息。
+当警告框出现后，用户需要点击确定按钮才能继续进行操作。
+widow.alert("") 警告框  
+* 确认框  
+当确认卡弹出时，用户可以点击 "确认" 或者 "取消" 来确定用户操作。
+当你点击 "确认", 确认框返回 true， 如果点击 "取消", 确认框返回 false。
+window.confirm("")
+* 提示框  
+提示框经常用于提示用户在进入页面前输入某个值。  
+当提示框出现后，用户需要输入某个值，然后点击确认或取消按钮才能继续操纵。
+如果用户点击确认，那么返回值为输入的值。如果用户点击取消，那么返回值为 null。
+window.prompt("")
+**弹窗使用 反斜杠 + "n"(\n) 来设置换行。**  
+
+#### VII JavaScript 计时事件  
+###### 1. JavaScript 计时事件  
+通过使用 JavaScript，我们有能力做到在一个设定的时间间隔之后来执行代码，而不是在函数被调用后立即执行。我们称之为计时事件。  
+> * 两个关键方法是
+> 1. setInterval() 间隔指定的毫秒数不停地执行指定的代码。
+> 2. setTimeout() 在指定的毫秒数后执行指定代码。  
+
+**PS:** setInterval() 和 setTimeout() 是 HTML DOM Window对象的两个方法。  
+
+① setInterval() 方法 间隔指定的毫秒数不停地执行指定的代码  
+**语法**   
+window.setInterval("function",milliseconds)  // window 可以省略
+```javascript
+setInterval(function(){alert("Hello")},3000);
+```
+② 停止执行 setInterval()  
+clearInterval() 方法用于停止 setInterval() 方法执行的函数代码。  
+**语法**
+window.clearInterval(intervalVariable)  // window 可以省略  
+要使用 clearInterval() 方法, 在创建计时方法时你必须使用全局变量：
+```javascript
+var myVar = setInterval("javascript function",milliseconds);
+clearInterval(myVar);
+```
+
+③ settimeOut()  
+**语法**  
+myVar = window.setTimeout("javascript function", milliseconds);
+setTimeout() 方法会返回某个值。在上面的语句中，值被储存在名为 myVar 的变量中。假如你希望取消这个 setTimeout()，你可以使用这个变量名来指定它。  
+* clearTimeout() 方法用于停止执行setTimeout()方法的函数代码。  
+
+#### IIX JavaScript Cookie  
+Cookie 用于存储web 页面的用户信息。  
+###### 1. 什么是 Cookie ？  
+Cookie 是一些数据，存储于电脑的文本文件中。  
+当 web 服务器向浏览器发送 web 页面时，在连接关闭后，服务端不会记录用户的信息。  
+Cookie 的作用就是用于解决 "如何记录客户端的用户信息":  
+  * 当用户访问浏览器时，他的名字可以记录在cookie中
+  * 在用户下一次访问该页面时，可以在 cookie 中读取用户访问记录。
+
+Cookie 以 名/值 对的形式存储： username=John Doe  
+当浏览器从服务器上请求 web 页面时， 属于该页面的 cookie 会被添加到该请求中。服务端通过这种方式来获取用户的信息。  
+
+###### 2. 使用 JavaScript 创建 Cookie  
+JavaScript 可以使用 document.cookie 属性来创建 、读取、及删除 cookie。  
+```javascript
+// 1. 创建cookie
+document.cookie="username=John Doe";  
+// 为 cookie 添加一个过期时间（以 UTC 或 GMT 时间）。默认情况下，cookie 在浏览器关闭时删除：
+document.cookie="username=John Doe; expires=Thu, 18 Dec 2043 12:00:00 GMT";
+// 可以使用 path 参数告诉浏览器 cookie 的路径。默认情况下，cookie 属于当前页面。
+document.cookie="username=John Doe; expires=Thu, 18 Dec 2043 12:00:00 GMT; path=/";
+
+// 2. 读取cookie
+// 	document.cookie 将以字符串的方式返回所有的 cookie，类型格式： cookie1=value; cookie2=value; cookie3=value;
+var x = document.cookie;
+
+// 3. 修改cookie   修改 cookie 类似于创建 cookie
+document.cookie="username=John Smith; expires=Thu, 18 Dec 2043 12:00:00 GMT; path=/";
+
+// 4. 删除 Cookie
+// 删除 cookie 非常简单。您只需要设置 expires 参数为以前的时间即可，如下所示，设置为 Thu, 01 Jan 1970 00:00:00 GMT:
+// 当您删除时不必指定 cookie 的值。
+document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+
+```
+###### 3. Cookie 字符串  
+document.cookie 属性看起来像一个普通的文本字符串，其实它不是。  
+即使您在 document.cookie 中写入一个完整的 cookie 字符串, 当您重新读取该 cookie 信息时，cookie 信息是以名/值对的形式展示的。  
+如果您设置了新的 cookie，旧的 cookie 不会被覆盖。  
+
+
+__________
+
+### 七、 JS 库  JQuery  2022-04-25  
+#### I JavaScript 库  
+JavaScript 库 - JQuery 、 Prototype 、 MooTools  
+
+###### 1. JavaScript 框架（库）  
+JavaScript 高级程序设计（特别是对浏览器差异的复杂处理）。通常很困难也很耗时。  
+为了应对这些调整，许多的 **JavaScript (helper)** 库应运而生。  
+这些 JavaScript 库常被称为 **JavaScript 框架**。  
+一些广受欢迎的 JavaScript 框架：  
+* JQuery
+* Prototype
+* MooTools  
+所有这些框架都提供针对常见 JavaScript 任务的函数，包括动画、DOM 操作以及 Ajax 处理。  
+
+* JQuery  
+jQuery 是目前最受欢迎的 JavaScript 框架。  
+它使用 CSS 选择器来访问和操作网页上的 HTML 元素（DOM 对象）。  
+jQuery 同时提供 companion UI（用户界面）和插件。  
+许多大公司在网站上使用 jQuery：  Google  Microsoft IBM Netflix  
+**教程:** <a href= "https://www.runoob.com/jquery/jquery-tutorial.html">链接</a>  
+* Prototype  
+Prototype 是一种库，提供用于执行常见 web 任务的简单 API。  
+API 是应用程序编程接口（Application Programming Interface）的缩写。它是包含属性和方法的库，用于操作 HTML DOM。  
+Prototype 通过提供类和继承，实现了对 JavaScript 的增强。  
+* MooTools  
+MooTools 也是一个框架，提供了可使常见的 JavaScript 编程更为简单的 API。  
+MooTools 也含有一些轻量级的效果和动画函数。  
+* 其他框架  
+YUI - Yahoo! User Interface Framework，涵盖大量函数的大型库，从简单的 JavaScript 功能到完整的 internet widget。  
+Ext JS - 可定制的 widget，用于构建富因特网应用程序（rich Internet applications）。  
+Dojo - 用于 DOM 操作、事件、widget 等的工具包。  
+script.aculo.us - 开源的 JavaScript 框架，针对可视效果和界面行为。  
+UIZE - Widget、AJAX、DOM、模板等等。  
+
+#### I JQuery 教程  
+JQuery 是一个JavaScript 库，极大地简化了JavaScript 编程。  
+###### 1. JQuery 说明  
+|JQuery 选择器|描述|
+|:---|:---|
+|$(this).hide()|隐藏当前HTML元素|
+|$("标签").hide()|隐藏所有的"标签"|
+|$(".类名").hide()|隐藏相应类名的元素|
+|$("#ID").hide()|隐藏相应ID名的元素|  
+
+|JQuery 事件|描述|
+|:---|:---|  
+|$().click()|单击事件|  
+|$().dbclick()|双击事件|  
+|$().mouseenter()|鼠标移动到元素上触发事件|  
+|$().mouseleave()|鼠标移动到指定元素，然后在离开触发事件|  
+|$().mousedown()|鼠标左键按下触发事件|  
+|$().mouseup()|鼠标左键按下，抬起时触发事件|  
+|$().hover()|鼠标悬浮在元素上，触发事件|  
+|$().focus()|元素获取焦点时触发事件|  
+|$().blur()|元素失去焦点时触发事件|  
+
+###### 2. JQuery 安装  
+> * 网页中添加 jQuery  
+> 1. 从 jquery.com 下载 jQuery 库  
+> 2. 从 CDN 中载入 jQuery, 如从 Google 中加载 jQuery  
+有两个版本的 jQuery 可供下载：Production version - 用于实际的网站中，已被精简和压缩。Development version - 用于测试和开发（未压缩，是可读的代码）  
+
+```html
+<!-- // 引入 -->
+<head>
+<script src="jquery-1.10.2.min.js"></script>
+</head>
+<!-- // JavaScript 是 HTML5 以及所有现代浏览器中的默认脚本语言！ -->
+```
+###### 3. JQuery 语法  
+通过 jQuery，您可以选取（查询，query） HTML 元素，并对它们执行"操作"（actions）。  
+* 基础语法： $(selector).action()  
+* 美元符号定义 jQuery;
+* 选择符（selector）"查询"和"查找" HTML 元素  
+* jQuery 的 action() 执行对元素的操作  
+
+**文档就绪事件**  
+实例中的所有 jQuery 函数位于一个 document ready 函数中：  
+```javascript
+$(document).ready(function()
+{
+  // 代码
+});
+// 简洁语法
+$(function()
+{
+  // 代码
+});
+```
+这是为了防止文档在完全加载（就绪）之前运行JQuery代码，即在DOM加载完成之后才对DOM进行操作。  
+如果在文档没有加载完成之前就运行函数，操作可能失败。  
+
+######  4. JQuery 选择器 
+jQuery 选择器允许您对 HTML 元素组或单个元素进行操作。  
+jQuery 选择器基于元素的 id、类、类型、属性、属性值等"查找"（或选择）HTML 元素。  
+它基于已经存在的 CSS 选择器，除此之外，它还有一些自定义的选择器。  
+jQuery 中所有选择器都以美元符号开头：$()。  
+
+4.1. 元素选择器  
+jQuery 元素选择器基于元素名选取元素。  
+在页面中选取所有 \<p> 元素:  $("p")    
+```javascript
+// 用户点击按钮后，所有 <p> 元素都隐藏：
+$(function()
+{
+  $("button").click(
+    function(){
+      $("p").hide();
+    });
+});
+```
+4.2. #id 选择器  
+jQuery #id 选择器通过 HTML 元素的 id 属性选取指定的元素。  
+页面中元素的id应该是唯一的，所以您要在页面中选取唯一的元素需要通过 #id 选择器。  
+通过 id 选取元素语法如下：  $("#test")
+```javascript
+// 当用户点击按钮后，有 id="test" 属性的元素将被隐藏：
+$(document).ready(function()
+{
+  $("button").click(
+    function(){
+      $("#test").hide();
+    });
+});
+```  
+
+4.3. .class 选择器  
+jQuery 类选择器可以通过指定的 class 查找元素。  
+语法如下： $(".test")  
+```javascript
+// 用户点击按钮后所有带有 class="test" 属性的元素都隐藏：
+$(function()
+{
+  $("button").click(
+    function(){
+      $(".test").hide();
+    });
+});
+```  
+4.4. 更多实例  
+
+|语法|描述|
+|:---|:---|
+|\$("*")|选取所有元素|
+|\$(this)|选取当前元素|
+|\$("p.info")|选取class为info的p元素|  
+|\$("ul li:first")|选取第一个ul元素的li元素|
+|\$("ul li:first-child")|选取每一个ul元素的第一个li元素|
+|\$("[href]")|选取带有href属性的元素|
+|\$("a[target='_blank']")|选取target属性等于"_blank"的a元素|
+|\$("a[target!='_blank']")|选取target属性不等于"_blank"的元素|
+|\$(":button")|选取所有type="button"的input元素和所有的button元素|
+|\$("tr:even")|选取偶数位置的tr元素|
+|\$("tr:odd")|选取奇数位置的tr元素|  
+
+###### 5. JQuery 事件  
+jQuery 是为事件处理特别设计的。  
+事件： 页面对不同访问者的响应叫做事件。  
+事件处理程序指的是当 HTML 中发生某些事件时所调用的方法。  
+
+#### II JQuery 效果
+隐藏、显示、切换，滑动，淡入淡出，以及动画。  
+
+###### 1. 效果
+
+###### 2. JQuery CallBack 方法  
+Callback 函数在当前动画 100% 完成之后执行。  
+所以，被立即停止的动画不会触发回调，被立即完成的动画会触发回调。  
+###### 3. JQuery 链 Chaining  
+通过 jQuery，可以把动作/方法链接在一起。  
+Chaining 允许我们在一条语句中运行多个 jQuery 方法（在相同的元素上）。  
+直到现在，我们都是一次写一条 jQuery 语句（一条接着另一条）。  
+不过，有一种名为链接（chaining）的技术，允许我们在相同的元素上运行多条 jQuery 命令，一条接着另一条。  
+**提示：** 这样的话，浏览器就不必多次查找相同的元素。  
+**实例**
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+</script>
+<script>
+$(document).ready(function()
+  {
+  $("button").click(function(){
+    $("#p1").css("color","red")
+            .slideUp(2000)
+            .slideDown(2000);
+  });
+});
+</script>
+</head>
+<body>
+
+<p id="p1">菜鸟教程!!</p>
+<button>点我</button>
+
+</body>
+</html>
+```
+
+#### III JQuery HTML  
+jQuery 拥有可操作 HTML 元素和属性的强大方法。  
+
+###### 1. JQuery 捕获内容和属性
+jQuery 拥有可操作 HTML 元素和属性的强大方法。  
+**jQuery 中非常重要的部分，就是操作 DOM 的能力。**  
+jQuery 提供一系列与 DOM 相关的方法，这使访问和操作元素和属性变得很容易。  
+|方法|描述|
+|:---|:---|
+|text()|设置或返回所选元素的文本内容|
+|html()|设置或返回所选元素的内容（包含html标签）|
+|val()|设置或返回表单字段的值（例如input输入框的输入值）|
+|prop|用于获取属性值。|
+|attr|用于获取属性值。|
+
+**实例**
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+</script>
+<script>
+$(document).ready(function(){
+  $("#btn1").click(function(){
+    // 设置文本
+    // $("#test1").text("Hello world!");
+    console.log("Text: " + $("#test").text());  // Text: 这是段落中的 粗体 文本。
+    
+  });
+  $("#btn2").click(function(){
+    // 设置
+    // $("#test2").html("<b>Hello world!</b>");
+    console.log("HTML: " + $("#test").html()); // HTML: 这是段落中的 <b>粗体</b> 文本。
+  });
+  // 设置
+  $("#btn3").click(function(){
+    $("#test3").val("RUNOOB");
+  });
+  // 设置属性
+  $("#runoob").attr({
+        "href" : "http://www.runoob.com/jquery",
+        "title" : "jQuery 教程"
+    });
+});
+</script>
+</head>
+
+<body>
+<p id="test">这是段落中的 <b>粗体</b> 文本。</p>
+<button id="btn1">显示文本</button>
+<button id="btn2">显示 HTML</button>
+</body>
+</html>
+```
+> prop() 和 attr() 的区别
+> * prop()
+> 1.如果有相应的属性，返回指定属性值。
+> 2.如果没有相应的属性，返回值是空字符串。
+> * attr()
+> 1.如果有相应的属性，返回指定属性值。
+> 2.如果没有相应的属性，返回值是空字符串。
+> * 结论
+> 对于HTML元素本身就带有的固有属性，在处理时，使用prop方法。
+> 对于HTML元素我们自己自定义的DOM属性，在处理时，使用 attr 方法。
+> 具有 true 和 false 两个属性的属性，如 checked, selected 或者 disabled 使用prop()。  
+
+* 回调函数  
+text()、html() 以及 val()，同样拥有回调函数。  
+回调函数有两个参数：被选元素列表中当前元素的下标，以及原始（旧的）值。然后以函数新值返回您希望使用的字符串。  
+
+**实例**
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+</script>
+<script>
+$(document).ready(function(){
+  $("#btn1").click(function(){
+    $("#test1").text(function(i,origText){
+      return "旧文本: " + origText + " 新文本: Hello world! (index: " + i + ")"; 
+      // 旧文本: 这是一个有 粗体 字的段落。 新文本: Hello world! (index: 0)
+    });
+  });
+
+  $("#btn2").click(function(){
+    $("#test2").html(function(i,origText){
+      return "旧 html: " + origText + " 新 html: Hello <b>world!</b> (index: " + i + ")"; 
+      // 旧 html: 这是另外一个有 粗体 字的段落。 新 html: Hello world! (index: 0)
+    });
+  });
+
+});
+</script>
+</head>
+
+<body>
+<p id="test1">这是一个有 <b>粗体</b> 字的段落。</p>
+<p id="test2">这是另外一个有 <b>粗体</b> 字的段落。</p>
+<button id="btn1">显示 新/旧 文本</button>
+<button id="btn2">显示 新/旧 HTML</button>
+</body>
+</html>
+```
+
+###### 2. jQuery  设置内容和属性
+
+###### 3. jQuery - 添加元素  
+添加新的 HTML 内容
+
+|方法|描述|
+|:---|:---|
+|append()|在被选元素的结尾插入内容|  
+|prepend()|在被选元素的开头插入内容|
+|after()|在被选元素的之后插入内容|
+|before()|在被选元素的之前插入内容|  
+
+① append() 方法在被选元素的结尾插入内容（仍然**在该元素的内部**）。  
+**实例**
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+</script>
+<script>
+  $(document).ready(function(){
+
+    $("#btn1").click(function(){
+      $("p").append(" <b>追加文本</b>。"); // 这是一个段落。 追加文本
+    });
+
+    $("#btn2").click(function(){
+      $("ol").append("<li>追加列表项</li>"); // 4. 追加列表项
+    });
+
+  });
+</script>
+</head>
+
+<body>
+  <p>这是一个段落。</p> 。
+  <p>这是另外一个段落。</p>
+  <ol>
+    <li>List item 1</li>
+    <li>List item 2</li>
+    <li>List item 3</li>
+  </ol> 
+  <button id="btn1">添加文本</button>
+  <button id="btn2">添加列表项</button>
+</body>
+</html>
+```
+append() 和 prepend() 方法能够通过参数接收无限数量的新元素。可以通过 jQuery 来生成文本/HTML（就像上面的例子那样），或者通过 JavaScript 代码和 DOM 元素。  
+**append() 和 prepend() 方法能够通过参数接收无限数量的新元素。可以通过 jQuery 来生成文本/HTML（就像上面的例子那样），或者通过 JavaScript 代码和 DOM 元素。**
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+<meta charset="utf-8">
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+</script>
+<script>
+  function appendText(){
+    var txt1="<p>文本-1。</p>";              // 使用 HTML 标签创建文本
+    var txt2=$("<p></p>").text("文本-2。");  // 使用 jQuery 创建文本
+    var txt3=document.createElement("p");
+    txt3.innerHTML="文本-3。";               // 使用 DOM 创建文本 text with DOM
+    $("body").append(txt1,txt2,txt3);        // 追加新元素
+  }
+</script>
+</head>
+<body>
+  <p>这是一个段落。</p>
+  <button onclick="appendText()">追加文本</button>
+</body>
+</html>
+``` 
+② after() 和 before() 方法  
+after() 方法在被选元素之后插入内容。 before() 方法在被选元素之前插入内容。  
+**实例**
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      $("#btn1").click(function(){
+        $("img").before("<b>之前</b>"); // 之前 图片
+      });
+
+      $("#btn2").click(function(){
+        $("img").after("<i>之后</i>");  // 图片 之后
+      });
+    });
+  </script>
+</head>
+<body>
+  <img src="/images/logo.png" >
+  <br><br>
+  <button id="btn1">之前插入</button>
+  <button id="btn2">之后插入</button>
+</body>
+</html>
+```
+
+###### 4. jQuery - 删除元素  
+删除元素/内容  
+一般可使用以下两个 jQuery 方法：  
+* remove() - 删除被选元素（以及其子元素）  
+* empty() - 从被选元素中删除子元素  
+
+① 过滤被删除的元素  
+remove() 方法也可接受一个参数，允许您对被删元素进行过滤。  
+参数可以是任何 jQuery 选择器的语法。  
+**实例**
+```javascript
+// 删除所有类名为italic的p元素
+$(document).ready(function(){
+  $("button").click(function(){
+    $("p").remove(".italic");
+  });
+});
+```
+
+###### 5. jQuery - 获取并设置 CSS 类  
+jQuery 操作CSS  
+|方法|描述|
+|:---|:---|
+|addClass()|向被选中元素中添加一个或者多个类|
+|removeClass()|向被选中元素中删除一个或多个类|
+|toggleClass|相别选中元素进行添加/删除类的切换操作|
+|css()|设置或者返回样式属性|
+
+**实例**
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+  <script>
+    
+    $(document).ready(function(){
+      // 向不同的元素添加 class 属性。
+      $("button").click(function(){
+        $("h1,h2,p").addClass("blue");
+        $("div").addClass("important");
+      });
+
+      // 也可以在 addClass() 方法中规定多个类：
+      $("button").click(function(){
+        $("body div:first").addClass("important blue");
+      });
+      // removeClass() 方法 在不同的元素中删除指定的 class 属性
+      $("button").click(function(){
+        $("h1,h2,p").removeClass("blue");
+      });
+      // toggleClass() 方法 对被选元素进行添加/删除类的切换操作
+      $("button").click(function(){
+        $("h1,h2,p").toggleClass("blue");
+      });
+
+    });
+
+    //
+
+  </script>
+  <style type="text/css">
+    .important
+    {
+      font-weight:bold;
+      font-size:xx-large;
+    }
+    .blue
+    {
+      color:blue;
+    }
+  </style>
+</head>
+<body>
+  <h1>标题 1</h1>
+  <h2>标题 2</h2>
+  <p>这是一个段落。</p>
+  <p>这是另外一个段落。</p>
+  <div>这是一些重要的文本!</div>
+  <br>
+  <button>为元素添加 class</button>
+</body>
+</html>
+```
+
+**css() 方法**  
+css() 设置或返回被选元素的一个或多个样式属性。  
+语法：
+css("propertyName")   
+```javascript
+$(function(){
+  $("p").css("background-color");
+});
+
+```
+设置css属性语法：
+css("propertyName","value");  
+css({"propertyName1":"value1","propertyName2":"value2",...})
+```javascript
+$(document).ready(function(){
+  $("p").css("background-color":"red");
+});
+```  
+
+###### 6. jQuery 尺寸  
+BOX Module 结合
+左外边距 左边框 左内边距 元素(高宽) 右内边距 右边框 右外边距
+
+|处理方法|描述|
+|:---|:---|
+|width()|设置或返回元素的宽度（不包括内边距、边框或外边距），仅元素宽度|
+|height()|设置或返回元素的高度（不包括内边距、边框或外边距），仅元素高度|
+|innerWidth()|返回元素的宽度（包括内边距），元素宽度 + 左右内边距|
+|interHeight()|返回元素的高度（包括内边距），元素高度 + 上下内边距|
+|outerWidth()|返回元素的宽度（包括内边距和边框）。元素宽度 + 左右内边距 + 左右边框|
+|outerHeight()|返回元素的高度（包括内边距和边框）。元素高度 + 上下内边距 + 上下边框|
+
+**PS：** 设置box-sizing 属性之后，width()获取的是css设置的width - padding 的值
+```html
+<style>
+  div {
+    width:100px;
+    height:100px;
+    padding:10px;
+    border:10px;
+    box-sizing:border-box;
+  }
+</style>
+<script>
+  $(document).ready(function(){
+    $("div").width(); // 80px
+    $("div").innerWidth(); // 100px
+    $("div").outerWidth(); // 100px
+  });
+  </script>
+```
+
+#### IV jQuery 遍历   
+jQuery 遍历，意为"移动"，用于根据其相对于其他元素的关系来"查找"（或选取）HTML 元素。以某项选择开始，并沿着这个选择移动，直到抵达您期望的元素为止。  
+可以向上、向下或者同级移动。  
+
+###### 1. jQuery 祖先（向上）  
+祖先是父、祖父或曾祖父等等。  
+通过 jQuery，能够向上遍历 DOM 树，以查找元素的祖先。  
+
+|方法|描述|
+|:---|:---|
+|parent()|返回被选元素的直接父元素。|
+|parents()|返回被选元素的所有祖先元素，它一路向上直到文档的根元素 (<html>)。也可以使用可选参数来过滤对祖先元素的搜索。parents("body")|
+|parentUntil()|返回介于两个给定元素之间的所有祖先元素。示例，$("span").parentsUntil("div").css({"color":"red","border":"2px solid red"});|
+
+###### 2. jQuery 后代（向下）  
+后代是子、孙、曾孙等等。  
+通过 jQuery，您能够向下遍历 DOM 树，以查找元素的后代。  
+
+|方法|描述|
+|:---|:---|
+|children()|返回被选元素的所有直接子元素。只会向下一级对 DOM 树进行遍历。参数可选$("div").children("p.1");|
+|find()|返回被选元素的后代元素，一路向下直到最后一个后代。 $("div").find("span");, $("div").find("*");|
+
+###### 3. jQuery 同胞（sibling）  
+同胞拥有相同的父元素。 
+
+|方法|描述|  
+|:---|:---|  
+|siblings()|返回被选元素的所有同胞元素。也使用可选参数来过滤对同胞元素的搜索。|
+|next()|返回被选元素的下一个同胞元素。也使用可选参数来过滤对同胞元素的搜索。|
+|nextAll()|返回被选元素的所有跟随的同胞元素。也使用可选参数来过滤对同胞元素的搜索。|
+|nextUntil()|返回介于两个给定参数之间的所有跟随的同胞元素。|
+|prev()|返回被选元素的上一个同胞元素。也使用可选参数来过滤对同胞元素的搜索。|
+|prevAll()|返回被选元素的所有之上的同胞元素。也使用可选参数来过滤对同胞元素的搜索。|
+|prevUntil()|返回介于两个给定参数之间的所有之上的同胞元素。|
+
+###### 4. jQuery 遍历 - 过滤  
+缩小搜索元素的范围  
+三个最基本的过滤方法是：first(), last() 和 eq()，它们允许基于其在一组元素中的位置来选择一个特定的元素。  
+
+① first() 返回被选元素的首个元素。  
+```javascript
+// 选取首个div内部的首个p元素
+$(document).ready(function(){
+  $("div p").first();
+});
+```
+② last() 方法返回被选元素的最后一个元素。
+```javascript
+// 最后一个 <div> 元素中的最后一个 <p> 元素：  
+$(document).ready(function(){
+  $("div p").last();
+});
+```  
+③ eq() 方法返回被选元素中带有指定索引号的元素。  
+```javascript
+// 索引号从 0 开始，因此首个元素的索引号是 0 而不是 1。
+// 选取第二个 <p> 元素（索引号 1）：
+$(document).ready(function(){
+  $("p").eq(1);
+});
+```  
 
 
 
@@ -2069,10 +4043,8 @@ HTML DOM 允许 JavaScript 改变 HTML 元素的样式。
 
 
 
-### 五、 JS 高级教程
 
-### 六、 JS 浏览器 BOM
+---
+## 八、 JS ES6
 
-### 七、 JS 库
-
-### 八、 JS ES6
+## 九、 Ajax
