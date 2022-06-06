@@ -3975,7 +3975,7 @@ BOX Module 结合
 jQuery 遍历，意为"移动"，用于根据其相对于其他元素的关系来"查找"（或选取）HTML 元素。以某项选择开始，并沿着这个选择移动，直到抵达您期望的元素为止。  
 可以向上、向下或者同级移动。  
 
-###### 1. jQuery 祖先（向上）  
+###### 4.1. jQuery 祖先（向上）  
 祖先是父、祖父或曾祖父等等。  
 通过 jQuery，能够向上遍历 DOM 树，以查找元素的祖先。  
 
@@ -3985,7 +3985,7 @@ jQuery 遍历，意为"移动"，用于根据其相对于其他元素的关系�
 |parents()|返回被选元素的所有祖先元素，它一路向上直到文档的根元素 (<html>)。也可以使用可选参数来过滤对祖先元素的搜索。parents("body")|
 |parentUntil()|返回介于两个给定元素之间的所有祖先元素。示例，$("span").parentsUntil("div").css({"color":"red","border":"2px solid red"});|
 
-###### 2. jQuery 后代（向下）  
+###### 4.2. jQuery 后代（向下）  
 后代是子、孙、曾孙等等。  
 通过 jQuery，您能够向下遍历 DOM 树，以查找元素的后代。  
 
@@ -3994,7 +3994,7 @@ jQuery 遍历，意为"移动"，用于根据其相对于其他元素的关系�
 |children()|返回被选元素的所有直接子元素。只会向下一级对 DOM 树进行遍历。参数可选$("div").children("p.1");|
 |find()|返回被选元素的后代元素，一路向下直到最后一个后代。 $("div").find("span");, $("div").find("*");|
 
-###### 3. jQuery 同胞（sibling）  
+###### 4.3. jQuery 同胞（sibling）  
 同胞拥有相同的父元素。 
 
 |方法|描述|  
@@ -4007,7 +4007,7 @@ jQuery 遍历，意为"移动"，用于根据其相对于其他元素的关系�
 |prevAll()|返回被选元素的所有之上的同胞元素。也使用可选参数来过滤对同胞元素的搜索。|
 |prevUntil()|返回介于两个给定参数之间的所有之上的同胞元素。|
 
-###### 4. jQuery 遍历 - 过滤  
+###### 4.4. jQuery 遍历 - 过滤  
 缩小搜索元素的范围  
 三个最基本的过滤方法是：first(), last() 和 eq()，它们允许基于其在一组元素中的位置来选择一个特定的元素。  
 
@@ -4033,18 +4033,576 @@ $(document).ready(function(){
   $("p").eq(1);
 });
 ```  
+④ filter() 规定一个标准，不匹配这个标准的元素会被从集合中删除，匹配的元素会保留。  
+```javascript
+// 匹配所有带有类名url的p元素
+$(document).ready(function(){
+  $("p").filter(".url");
+});
+```
+⑤ not() 不匹配标准的所有元素  
+```javascript
+// 返回不带有类名url的所有p元素
+$(document).ready(function(){
+  $("p").not(".url");
+});
+```
 
+#### V jQuery AJAX 简介  
+AJAX 是与服务器交换数据的技术，它在不重载全部页面的情况下，实现了对部分网页的刷新。  
+###### 5.1 什么是AJAX？
+AJAX = 异步 JavaScript 和 XML (Asynchronous JavaScript and XML)  
+即，在不重载整个网页的情况下，AJAX通过后台加载数据，并在页面显示。  
+**连接1：** https://www.runoob.com/jquery/ajax-ajax.html  
+**连接2：** https://www.runoob.com/ajax/ajax-tutorial.html
+jQuery 提供多个与 AJAX 有关的方法。  
+通过 jQuery AJAX 方法，您能够使用 HTTP Get 和 HTTP Post 从远程服务器上请求文本、HTML、XML 或 JSON - 同时您能够把这些外部数据直接载入网页的被选元素中。  
 
+###### 5.2 jQuery 中 AJAX 方法  
 
+① load() 方法  
+load() 方法从服务器加载数据，并把返回的数据放入被选的元素中。  
+语法：
+\$(selector).load(URL,data,callback);  
+URL： 必须的，规定要加载的URL  
+data：可选的，规定与请求一同发送的查询字符键/值对集合  
+callback：可选的，load()完成后，所执行的函数  
 
+② post() HTTP GET 请求从服务器请求数据。
+语法：
+\$(selector).get(URL,callback);
+必需的 URL 参数规定请求的 URL。  
+可选的 callback 参数是请求成功后所执行的函数名。
 
+③ get() HTTP POST 请求从服务器请求数据。
+语法：
+\$(selector).post(URL,callback);
 
+> HTTP 请求：GET vs POST
+> 两种在客户端和服务器端进行请求-响应的常用方法是：GET 和 POST。
+> GET - 从指定的资源请求数据  
+> POST - 向指定的资源提交要处理的数据  
+> GET 基本上用于从服务器获得（取回）数据。注释：GET 方法可能返回缓存数据。l
+> POST 也可用于从服务器获取数据。不过，POST 方法不会缓存数据，并且常用于连同请求一起发送数据。
+> 链接： https://www.runoob.com/tags/html-httpmethods.html  
+> * 区别  
+> 1. 发送的数据数量
+> 在 GET 中，只能发送有限数量的数据，因为数据是在 URL 中发送的。
+> 在 POST 中，可以发送大量的数据，因为数据是在正文主体中发送的。
+> 2. 安全性
+> GET 方法发送的数据不受保护，因为数据在 URL 栏中公开，这增加了漏洞和黑客攻击的风险。
+> POST 方法发送的数据是安全的，因为数据未在 URL 栏中公开，还可以在其中使用多种编码技术，这使其具有弹性。  
+> 3. 加入书签中
+> GET 查询的结果可以加入书签中，因为它以 URL 的形式存在；而 POST 查询的结果无法加入书签中。
+> 4. 编码
+> 在表单中使用 GET 方法时，数据类型中只接受 ASCII 字符。
+> 在表单提交时，POST 方法不绑定表单数据类型，并允许二进制和 ASCII 字符。
+> 5. 可变大小
+> GET 方法中的可变大小约为 2000 个字符。
+> POST 方法最多允许 8 Mb 的可变大小。
+> 6. 缓存
+> GET 方法的数据是可缓存的，而 POST 方法的数据是无法缓存的。
+> 7. 主要作用
+> GET 方法主要用于获取信息。而 POST 方法主要用于更新数据。
 
+④ noConflict() 方法  
+如何在页面上同时使用 jQuery 和其他框架？  
+jQuery 使用 $ 符号作为 jQuery 的简写。如果其他 JavaScript 框架也使用 $ 符号作为简写怎么办？  
+在用的两种不同的框架正在使用相同的简写符号，有可能导致脚本停止运行。  
+```javascript
+// noConflict() 方法会释放对 $ 标识符的控制，这样其他脚本就可以使用它了。  
+// 可以通过全名替代简写的方式来使用 jQuery
+$.noConflict();
+jQuery(document).ready(function(){
+  jQuery("p").click(function(){
+    this.hide();
+  });
+});
 
+//也可以创建自己的简写。noConflict() 可返回对 jQuery 的引用，您可以把它存入变量，以供稍后使用。
+jq = $.noConflict();
+jq(function(){
+  // ...
+});
 
+// 不愿意改变这个快捷方式，那么您可以把 $ 符号作为变量传递给 ready 方法。这样就可以在函数内使用 $ 符号了 - 而在函数外，依旧不得不使用 "jQuery"
+$.noConflict();
+jQuery(document).ready(function($){
+  $("button").click(function(){
+    $("p").hide();
+  });
+});
+
+```  
+###### 5.3 JSONP  
+JSONP(JSON with Padding) 是JSON的一种使用方式，可以让网页从别的域名（网页）获取数据，即跨域读取数据。  
+因为同源策略的存在，需要使用特殊的技术C才能实现跨域读取数据。  
+
+① JSONP 应用  
+**服务端JSONP格式数据**  
+如客户想访问 : https://www.runoob.com/try/ajax/jsonp.php?jsoncallback=callbackFunction。  
+假设客户期望返回数据：["customername1","customername2"]。
+真正返回到客户端的数据显示为: callbackFunction(["customername1","customername2"])。
+
+###### 5.4 jQuery 实例
+**连接：**  https://www.runoob.com/jquery/jquery-examples.html
 
 
 ---
 ## 八、 JS ES6
+ES6，全程ECMAScript6.0 是JavaScript下的一个标准版本，2015年06月发布。   
 
-## 九、 Ajax
+#### I ES6 let 与 const  
+**暂时性死区**  
+ES6 明文规定，代码块内如果存在let 或者 const，代码块会对这些命令声明的变量从块的开始就形成一个封闭作用域。  
+```javascript
+var PI = "a";
+if(true){
+  console.log(PI);// ReferenceError: PI is not defined
+  const PI = "3.14";
+}
+```  
+**PS** const 如何做到变量在声明初始化之后不允许改变的？  
+其实 const 其实保证的不是变量的值不变，而是保证变量指向的内存地址所保存的数据不允许改动。  
+简单类型和复合类型保存值的方式是不同的。  
+1. 对于简单类型（数值 number、字符串 string 、布尔值 boolean）,值就保存在变量指向的那个内存地址，因此 const 声明的简单类型变量等同于常量。  
+2. 复杂类型（对象 object，数组 array，函数 function），变量指向的内存地址其实是保存了一个指向实际数据的指针，所以 const 只能保证指针是固定的，至于指针指向的数据结构变不变就无法控制了，所以使用 const 声明复杂类型对象时要慎重。  
+
+#### II ES6 解构赋值  
+解构赋值是对赋值运算符的一种扩展。  
+是一种针对数组和对象进行模式匹配，然后对其中的变量进行赋值。  
+在代码书写上简洁且易读，语义更加清晰明了；也方便了复杂对象中数据字段获取。  
+###### 2.1 解构模型  
+在解构中，有以下两部分参与：  
+* 解构的源，解构赋值表达式的右部分。
+* 解构的目标，解构赋值表达式的左部分。  
+
+###### 3.2 数组模型的解构  
+```javascript
+// 1. 基本 
+let [a,b,c] = [1,2,3] // a = 1,b = 2,c = 3
+
+// 2. 可嵌套  
+let [a, [[b],c]] = [1,[[2],3]];
+
+// 3. 可忽略  
+let [a,,c] = [1,2,3]; // a = 1,c = 3
+
+// 4. 不完全解构
+let [a = 1, b] = []; // a = 1, b = undefined
+
+// 5. 剩余运算符
+let [a,...b] = [1,2,3]; // a = 1,b = [2,3]
+
+// 6. 字符串等等  
+// 在数组的解构中，解构的目标若为可遍历对象，皆可进行解构赋值。可遍历对象即实现 Iterator 接口的数据。
+let [a, b, c, d, e] = 'hello';
+// a = 'h'
+// b = 'e'
+// c = 'l'
+// d = 'l'
+// e = 'o'-  
+
+// 7. 解构默认值  
+let [a = 2] = [undefined]; // a = 2
+// 当解构模式有匹配结果，且匹配结果是 undefined 时，会触发默认值作为返回结果。  
+let [a = 3, b = a] = [];     // a = 3, b = 3
+let [a = 3, b = a] = [1];    // a = 1, b = 1
+let [a = 3, b = a] = [1, 2]; // a = 1, b = 2 都可以正常解构
+
+```  
+###### 3.2 对象模型的解构  
+```javascript
+// 1. 基本  
+let { foo, bar } = { foo: 'aaa', bar: 'bbb' };// foo = 'aaa' bar = 'bbb'
+let { baz : foo } = { baz : 'ddd' };// foo = 'ddd' 
+
+// 2. 嵌套可忽略 
+let obj = {p: ['hello', {y: 'world'}] };
+let {p: [x, { y }] } = obj;   // x = 'hello' y = 'world'  
+let obj = {p: ['hello', {y: 'world'}] };
+let {p: [x, {  }] } = obj;    // x = 'hello'
+
+// 3. 不完全解构  
+let obj = {p: [{y: 'world'}] };
+let {p: [{ y }, x ] } = obj;  // x = undefined  y = 'world'  
+
+// 4. 剩余运算符  
+let {a, b, ...rest} = {a: 10, b: 20, c: 30, d: 40};
+// a = 10
+// b = 20
+// rest = {c: 30, d: 40}
+
+// 5. 解构默认值  
+let {a = 10, b = 5} = {a: 3}; // a = 3; b = 5;
+let {a: aa = 10, b: bb = 5} = {a: 3}; // aa = 3; bb = 5;
+
+```
+
+#### III ES6 Symbol 对象  
+ES6 引入了一个新的原始对象 Symbol，表示独一无二的值，最大的用法是来定义对象的唯一属性。  
+Symbol 函数栈不能使用 new 命令，因为Symbol 是一个原始数据类型，不是对象。  
+可以接受一个字符串作为参数，为新创建的 Symbol 提供描述，用来显示在控制台或者作为字符串的时候使用，便于区分。  
+```javascript
+let sy = Symbol("KK");  
+console.log(sy);   // Symbol(KK)
+typeof(sy);        // "symbol"
+// 相同参数 Symbol() 返回的值不相等
+let sy1 = Symbol("KK"); 
+sy === sy1;       // false
+
+```  
+
+###### 3.1 使用场景  
+1. 作为属性名  
+由于每一个 Symbol 的值都是不相等的，所以 Symbol 作为对象的属性名，可以保证属性不重名。  
+```javascript
+let sy = Symbol("key1");
+
+// 写法1
+let syObject = {};
+syObject[sy] = "kk";
+console.log(syObject);  // {Symbol(key1): "kk"}
+console.log(syObject[sy]);  // kk
+
+// 写法2
+let syObject = {
+  [sy]: "kk"
+};
+console.log(syObject);
+
+// 写法3  
+let syObject = {};
+Object.defineProperty(syObject, sy, {value: "kk"});
+console.log(syObject);
+```  
+**Symbol 作为对象属性名时不能用.运算符，要用方括号。因为.运算符后面是字符串，所以取到的是字符串 sy 属性，而不是 Symbol 值 sy 属性。**  
+**PS** Symbol 值作为属性名是，该属性是共有属性不是是有属性，可以在类的外部访问。但是不会出现在for...in、for...of的循环中，也不会被Object.keys()、Object.getOwnPropertyNames()返回。  
+如果要读取一个对象的Symbol属性，可以通过Object.getOwnPropertySymbols() 和 Reflect.ownKeys()取到。  
+```javascript
+let sy = Symbol("key1");
+let syObject = {};
+syObject[sy] = "KK";
+console.log(syObject); // {Symbol(key): 'KK'}
+
+for(let i in syObject)
+  console.log(i) // 无输出
+
+Object.keys(syObject); // []
+Object.getOwnPropertySymbols(syObject);   // [Symbol(key1)]
+Reflect.ownKeys(syObject);                 // [Symbol(key1)]
+```  
+
+2. 定义常量
+
+3. Symbol.for()  
+Symbol.for()类似单例模式，首先会在全局搜索被登记的Symbol中是否有该字符串参数作为名称的 Symbol 值，如果有即返回该 Symbol 值，若没有则新建并返回一个以该字符串参数为名称的 Symbol 值，并登记在全局环境中供搜索。  
+```javascript
+let yellow = Symbol("Yellow");
+ley yellow1 = Symbol.for("Yellow");
+yellow === yellow1; // false
+let yellow2 = Symbol.for("Yellow");
+yellow1 === yellow2; //true
+```  
+
+4. Symbol.keyFor()  
+返回一个已登记的Symbol类型指的key，用来检测该字符串参数作为名称的Symbol值是否已被登记。  
+```javascript
+let yellow1 = Symbol.for("Yellow");
+Symbol.keyFor(yellow1); // Yellow
+
+```  
+
+#### IV ES6 Map 与 Set  
+Map 对象保存键值对。任何值（对象或者原始值）都可以作为一个键或一个值。  
+> Map 和 Objects 的区别  
+> * 一个Object的键只能是字符串或者Symbols，但一个Map的键可以是任意值。  
+> * Map 中的键值是有序的（FIFO原则），而添加到对象Object中的键不是。
+> * Map 的键值对个数可以从size属性获取，而Object的键值对个数只能手动计算。
+> * Object 都有自己的原型，原型链的键名有可能和你自己在对象上的设置的键名产生冲突。  
+
+###### 4.1 Map 中 键key
+1. key 是字符串
+```javascript
+var myMap = new Map();
+var keyString = "a string"; 
+myMap.set(keyString, "和键'a string'关联的值");
+myMap.get(keyString);    // "和键'a string'关联的值"
+myMap.get("a string");   // "和键'a string'关联的值"
+                         // 因为 keyString === 'a string'
+```
+2. key 是对象  
+```javascript
+var myMap = new Map();
+var keyObj = {}, 
+ 
+myMap.set(keyObj, "和键 keyObj 关联的值");  
+
+myMap.get(keyObj); // "和键 keyObj 关联的值"
+myMap.get({}); // undefined, 因为 keyObj !== {}
+```
+
+3. key 是函数  
+```javascript
+var myMap = new Map();
+var keyFunc = function () {}, // 函数
+ 
+myMap.set(keyFunc, "和键 keyFunc 关联的值");
+ 
+myMap.get(keyFunc); // "和键 keyFunc 关联的值"
+myMap.get(function() {}) // undefined, 因为 keyFunc !== function () {}
+```
+
+4. key 是NaN  
+虽然 NaN 和任何值甚至和自己都不相等(NaN !== NaN 返回true)，NaN作为Map的键来说是没有区别的。
+```javascript
+var myMap = new Map();
+myMap.set(NaN, "not a number");
+ 
+myMap.get(NaN); // "not a number"
+ 
+var otherNaN = Number("foo");
+myMap.get(otherNaN); // "not a number"
+```  
+
+###### 4.2 Map 的迭代  
+1. for...of  
+```javascript
+var myMap = new Map();
+myMap.set(0,"zero");
+myMap.set(1,"one");
+// 遍历
+for(var [key,value] of myMap){
+  console.log(key + "=" + value);
+}
+// 0=zero  1=one  
+
+// 这个 entries 方法返回一个新的 Iterator 对象，它按插入顺序包含了 Map 对象中每个元素的 [key, value] 数组。
+for(var [key,value] of myMap.entries()) {
+  console.log(key + "+" + value);
+}
+
+// keys 方法返回一个新的 Iterator 对象， 它按插入顺序包含了 Map 对象中每个元素的键
+for(var key of myMap.keys()) {
+  console.log(key); // 0 1
+}
+
+//  values 方法返回一个新的 Iterator 对象，它按插入顺序包含了 Map 对象中每个元素的值
+for(var value of myMap.values()) {
+  console.log(value); // 0 1
+}
+```  
+
+2. forEach()  
+```javascript
+var myMap = new Map();
+myMap.set(0,"zero");
+myMap.set(1,"one");
+
+myMap.forEach(function(value,key) {
+  console.log(key + "=" + value);
+});
+```  
+
+###### 4.3 Map 对象的操作  
+1. Map 与 Array的转换  
+```javascript
+var kvArray = [["key1":"value1"],["key2":"value2"]];
+
+// Map 构造函数可以将一个 二维 键值对数组转换成一个 Map 对象  
+var myMap = new Map(kvArray);
+
+// 使用 Array.from 函数可以将一个 Map 对象转换成一个二维键值对数组  
+var outArray = Array.from(myMap);
+```  
+2. Map 克隆  
+```javascript
+var myMap1 = new Map([["key1":"value1"],["key2":"value2"]]);
+var myMap2 = new Map(myMap1);
+```
+
+3. Map 的合并  
+```javascript
+var first = new Map([[1, 'one'], [2, 'two'], [3, 'three'],]);
+var second = new Map([[1, 'uno'], [2, 'dos']]);  
+// 合并两个 Map 对象时，如果有重复的键值，则后面的会覆盖前面的，对应值即 uno，dos， three
+var merged = new Map([...first, ...second]);
+```  
+
+#### V Set 对象  
+Set 对象允许你存储任何类型的唯一值，无论是原始值或者是对象引用。  
+* Set 对象存储的值总是唯一的，所以需要判断两个值是否恒等。有几个特殊值需要特殊对待  
+* +0 与 -0 在存储判断唯一性的时候是恒等的，所以不重复；
+* undefined 与 undefined 是恒等的，所以不重复；
+* NaN 与 NaN 是不恒等的，但是在 Set 中只能存一个，不重复。
+
+```javascript
+let mySet = new Set();
+ 
+mySet.add(1); // Set(1) {1}
+mySet.add(5); // Set(2) {1, 5}
+mySet.add(5); // Set(2) {1, 5} 这里体现了值的唯一性
+mySet.add("some text"); 
+// Set(3) {1, 5, "some text"} 这里体现了类型的多样性
+var o = {a: 1, b: 2}; 
+mySet.add(o);
+mySet.add({a: 1, b: 2}); 
+// Set(5) {1, 5, "some text", {…}, {…}} 
+// 这里体现了对象之间引用不同不恒等，即使值相同，Set 也能存储
+```  
+###### 5.1 类型转换  
+Array
+```javascript
+// Array 转 Set
+var mySet = new Set(["value1","value2","value3"]);  
+
+// 用...操作符，将Set 转 Array  
+var myArray = [...mySet];
+```  
+String  
+```javascript
+// String 转 Set
+var mySet = new Set("hello"); // Set(4) {"h", "e", "l", "o"}
+// 注：Set 中 toString 方法是不能将 Set 转换成 String
+```  
+###### 5.2 Set 对象的作用  
+1. 数组去重  
+```javascript
+var mySet = new Set([1,2,3,4,4]);
+console.log([...mySet]); // [1, 2, 3, 4]
+```
+2. 并集  
+```javascript
+var a = new Set([1,2,3]);
+var b = new Set([4,2,3]);
+var union = new Set([...a,...b]);
+console.log(union);  //  {1, 2, 3, 4}
+```  
+
+3. 交集
+```javascript
+var a = new Set([1,2,3]);
+var b = new Set([4,2,3]);
+var intersect = new Set([...a].filter(x => b.has(x)));
+console.log(intersect);
+```
+
+4. 差集  
+```javascript
+var a = new Set([1,2,3]);
+var b = new Set([4,2,3]);
+var diff = new Set([...a].filter(x => !b.has(x))); 
+console.log(diff); // {1}
+```
+
+#### VI ES6 Reflect 与 Proxy 
+
+
+#### VII ES6 字符串  
+**拓展的方法**  
+
+
+#### VIII ES6 数值  
+###### 8.1 数值的表示  
+* 二进制表示新写法：前缀0b 或 0B
+
+* 八进制表示新写法：前缀0o 或 0O
+
+* 常量  
+Number.EPSILON  
+Number.EPSILON 属性表示1与大于1的最小浮点数之间的差  
+它的值接近于 2.2204460492503130808472633361816E-16，或者 2-52。  
+```javascript
+// 测试数值是否在误差范围内:
+0.1 + 0.2 === 0.3; // false
+// 在误差范围内即视为相等
+equal = (Math.abs(0.1 - 0.3 + 0.2) < Number.EPSILON); // true
+```  
+
+* 属性特性  
+
+#### IX ES6 对象
+
+
+#### X ES6 数组  
+###### 10.1 数组创建  
+1. Array.of()
+将参数中所有值作为元素形成数组  
+```javascript
+console.log(Array.of(1,2,3,4)); [1,2,3,4]
+
+// 参数值可以是不同类型  
+console.log(Array.of(1,'2',true)); // [1,'2',true]
+
+// 参数为空时，返回空数组
+console.log(Array.of());// []
+```
+2. Array.from()
+将类数组对象或可迭代对象转化为数组。也可以使用slice方法
+```javascript
+// 参数为数组,返回与原数组一样的数组
+console.log(Array.from([1, 2])); // [1, 2]
+ 
+// 参数含空位
+console.log(Array.from([1, , 3])); // [1, undefined, 3]
+```  
+语法：
+Array.from(arrayLike[, mapFn[, thisArg]]);
+返回值为转换后的数组。  
+```javascript
+// arrayLike  想要转换的类数组对象或可迭代对象。  
+console.log(Array.from([1, 2, 3])); // [1, 2, 3]
+
+//mapFn 可选，map 函数，用于对每个元素进行处理，放入数组的是处理后的元素。
+console.log(Array.from([1, 2, 3], (n) => n * 2)); // [2, 4, 6]
+
+// thisArg 可选，用于指定 map 函数执行时的 this 对象。
+let map = {
+    do: function(n) {  return n * 2; }
+}
+let arrayLike = [1, 2, 3];
+console.log(Array.from(arrayLike, function (n){
+    return this.do(n);
+}, map)); // [2, 4, 6]
+```  
+**类数组对象**  
+一个类数组对象必须含有 length 属性，且元素属性名必须是数值或者可转换为数值的字符。  
+```javascript
+let arr = Array.from({
+  0: '1',
+  1: '2',
+  2: 3,
+  length: 3
+});
+console.log(arr); // ['1', '2', 3]
+ 
+// 没有 length 属性,则返回空数组
+let array = Array.from({
+  0: '1',
+  1: '2',
+  2: 3,
+});
+console.log(array); // []
+ 
+// 元素属性名不为数值且无法转换为数值，返回长度为 length 元素值为 undefined 的数组  
+let array1 = Array.from({
+  a: 1,
+  b: 2,
+  length: 2
+});
+console.log(array1); // [undefined, undefined]
+```
+###### 10.2 扩展方法  
+1. find()
+2. findeIndex()
+3. fill()
+4. entries()
+5. keys()
+6. values()
+7. includes()
+8. flat()
+9. faltMap()
+
+
+#### XI ES6 函数
+
