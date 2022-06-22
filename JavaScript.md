@@ -1488,10 +1488,34 @@ var x = (a,b) => a * b; // 或
 var x1 = (a,b) => { return a * b; }
 ```
 * 有的箭头函数都没有自己的 this。 不适合定义一个对象的方法。  
-* 当我们使用箭头函数时，箭头函数会默认绑定外层的this 的值，所以在箭头函数中 this 的值和外层的 this 是一样的。  
+* 当我们使用箭头函数时，箭头函数会默认绑定外层的this 的值，所以在**箭头函数中 this 的值和外层的 this 是一样的** 。
 * 箭头函数 是不能提升的，需要在使用之前定义。  
 * 使用 const 比 var 安全，因为表达式始终是一个常量。  
 * 如果函数部分只有一个语句，则可以省去 return 关键字和 大括号{} 。  
+```javascript
+// ES6 之前，JavaScript 的 this 对象一直很令人头大，回调函数，经常看到 var self = this 这样的代码，为了将外部 this 传递到回调函数中，那么有了箭头函数，就不需要这样做了，直接使用 this 就行。
+var Person = {
+    'age': 18,
+    'sayHello': function () {
+      setTimeout(function () {
+        console.log(this.age); // this -> window
+      });
+    }
+};
+var age = 20;
+Person.sayHello();  // 20
+ 
+var Person1 = {
+    'age': 18,
+    'sayHello': function () {
+      setTimeout(()=>{
+        console.log(this.age); // this -> Person1
+      });
+    }
+};
+var age = 20;
+Person1.sayHello();  // 18
+```
 
 
 #### II JavaScript 函数参数  
@@ -2967,6 +2991,7 @@ Array.prototype.myUpperCase = function() {
 |splice()|从数组中添加或者删除元素|
 |toString()|将数组转换成字符串，并返回结果|
 |valeOf()|返回数组对象的原始值|
+|at(index)|类似于[0...n-1]索引，但是at中允许负值，意味着反向索引|
 
 **部分方法详解**
 ① copyWithin()  
@@ -3019,7 +3044,9 @@ array.forEach(function(currentValue, index, arr), thisValue)
 ```javascript
 // 数组
 var out = [];
-[1,2,3].forEach(function(elem){ this.push(elem * elem);} , out);
+[1,2,3].forEach(function(elem){ 
+  this.push(elem * elem);
+  } , out);
 console.log(out); // [1, 4, 9]
 
 // 对象
@@ -4158,7 +4185,7 @@ ES6 明文规定，代码块内如果存在let 或者 const，代码块会对这
 ```javascript
 var PI = "a";
 if(true){
-  console.log(PI);// ReferenceError: PI is not defined
+  console.log(PI);  // ReferenceError: PI is not defined
   const PI = "3.14";
 }
 ```  
@@ -4169,7 +4196,7 @@ if(true){
 2. 复杂类型（对象 object，数组 array，函数 function），变量指向的内存地址其实是保存了一个指向实际数据的指针，所以 const 只能保证指针是固定的，至于指针指向的数据结构变不变就无法控制了，所以使用 const 声明复杂类型对象时要慎重。  
 
 #### II ES6 解构赋值  
-解构赋值是对赋值运算符的一种扩展。  
+解构赋值是对赋值运算符的一种扩展。    
 是一种针对数组和对象进行模式匹配，然后对其中的变量进行赋值。  
 在代码书写上简洁且易读，语义更加清晰明了；也方便了复杂对象中数据字段获取。  
 ###### 2.1 解构模型  
@@ -4214,8 +4241,8 @@ let [a = 3, b = a] = [1, 2]; // a = 1, b = 2 都可以正常解构
 ###### 3.2 对象模型的解构  
 ```javascript
 // 1. 基本  
-let { foo, bar } = { foo: 'aaa', bar: 'bbb' };// foo = 'aaa' bar = 'bbb'
-let { baz : foo } = { baz : 'ddd' };// foo = 'ddd' 
+let { foo, bar } = { foo: 'aaa', bar: 'bbb' };  // foo = 'aaa' bar = 'bbb'
+let { baz : foo } = { baz : 'ddd' };  // foo = 'ddd' 
 
 // 2. 嵌套可忽略 
 let obj = {p: ['hello', {y: 'world'}] };
@@ -4234,8 +4261,8 @@ let {a, b, ...rest} = {a: 10, b: 20, c: 30, d: 40};
 // rest = {c: 30, d: 40}
 
 // 5. 解构默认值  
-let {a = 10, b = 5} = {a: 3}; // a = 3; b = 5;
-let {a: aa = 10, b: bb = 5} = {a: 3}; // aa = 3; bb = 5;
+let {a = 10, b = 5} = {a: 3};   // a = 3; b = 5;  
+let {a: aa = 10, b: bb = 5} = {a: 3};   // aa = 3; bb = 5;  
 
 ```
 
@@ -4249,7 +4276,8 @@ console.log(sy);   // Symbol(KK)
 typeof(sy);        // "symbol"
 // 相同参数 Symbol() 返回的值不相等
 let sy1 = Symbol("KK"); 
-sy === sy1;       // false
+sy == sy1; // false
+sy === sy1; // false
 
 ```  
 
@@ -4269,7 +4297,7 @@ console.log(syObject[sy]);  // kk
 let syObject = {
   [sy]: "kk"
 };
-console.log(syObject);
+console.log(syObject);   // {Symbol(key1): "kk"}
 
 // 写法3  
 let syObject = {};
@@ -4277,7 +4305,7 @@ Object.defineProperty(syObject, sy, {value: "kk"});
 console.log(syObject);
 ```  
 **Symbol 作为对象属性名时不能用.运算符，要用方括号。因为.运算符后面是字符串，所以取到的是字符串 sy 属性，而不是 Symbol 值 sy 属性。**  
-**PS** Symbol 值作为属性名是，该属性是共有属性不是是有属性，可以在类的外部访问。但是不会出现在for...in、for...of的循环中，也不会被Object.keys()、Object.getOwnPropertyNames()返回。  
+**PS** Symbol 值作为属性名时，该属性是共有属性不是是有属性，可以在类的外部访问。但是不会出现在for...in、for...of的循环中，也不会被Object.keys()、Object.getOwnPropertyNames()返回。  
 如果要读取一个对象的Symbol属性，可以通过Object.getOwnPropertySymbols() 和 Reflect.ownKeys()取到。  
 ```javascript
 let sy = Symbol("key1");
@@ -4299,10 +4327,15 @@ Reflect.ownKeys(syObject);                 // [Symbol(key1)]
 Symbol.for()类似单例模式，首先会在全局搜索被登记的Symbol中是否有该字符串参数作为名称的 Symbol 值，如果有即返回该 Symbol 值，若没有则新建并返回一个以该字符串参数为名称的 Symbol 值，并登记在全局环境中供搜索。  
 ```javascript
 let yellow = Symbol("Yellow");
-ley yellow1 = Symbol.for("Yellow");
+let yellow1 = Symbol.for("Yellow");
 yellow === yellow1; // false
+
 let yellow2 = Symbol.for("Yellow");
 yellow1 === yellow2; //true
+
+console.log(Symbol.keyFor(yellow)); // undefined
+console.log(Symbol.keyFor(yellow1)); // Yellow
+console.log(Symbol.keyFor(yellow2)); // Yellow
 ```  
 
 4. Symbol.keyFor()  
@@ -4317,11 +4350,11 @@ Symbol.keyFor(yellow1); // Yellow
 Map 对象保存键值对。任何值（对象或者原始值）都可以作为一个键或一个值。  
 > Map 和 Objects 的区别  
 > * 一个Object的键只能是字符串或者Symbols，但一个Map的键可以是任意值。  
-> * Map 中的键值是有序的（FIFO原则），而添加到对象Object中的键不是。
-> * Map 的键值对个数可以从size属性获取，而Object的键值对个数只能手动计算。
+> * Map 中的键值是有序的（FIFO原则），而添加到对象Object中的键不是。  
+> * Map 的键值对个数可以从size属性获取，而Object的键值对个数只能手动计算。  
 > * Object 都有自己的原型，原型链的键名有可能和你自己在对象上的设置的键名产生冲突。  
 
-###### 4.1 Map 中 键key
+###### 4.1 Map 中 键 key
 1. key 是字符串
 ```javascript
 var myMap = new Map();
@@ -4419,22 +4452,23 @@ var outArray = Array.from(myMap);
 ```javascript
 var myMap1 = new Map([["key1":"value1"],["key2":"value2"]]);
 var myMap2 = new Map(myMap1);
+// Map 对象构造函数生成实例，迭代出新的对象。
 ```
 
 3. Map 的合并  
 ```javascript
 var first = new Map([[1, 'one'], [2, 'two'], [3, 'three'],]);
 var second = new Map([[1, 'uno'], [2, 'dos']]);  
-// 合并两个 Map 对象时，如果有重复的键值，则后面的会覆盖前面的，对应值即 uno，dos， three
+// 合并两个 Map 对象时，如果有重复的键值，则后面的会覆盖前面的，对应值即 uno，dos，three
 var merged = new Map([...first, ...second]);
 ```  
 
 #### V Set 对象  
 Set 对象允许你存储任何类型的唯一值，无论是原始值或者是对象引用。  
 * Set 对象存储的值总是唯一的，所以需要判断两个值是否恒等。有几个特殊值需要特殊对待  
-* +0 与 -0 在存储判断唯一性的时候是恒等的，所以不重复；
-* undefined 与 undefined 是恒等的，所以不重复；
-* NaN 与 NaN 是不恒等的，但是在 Set 中只能存一个，不重复。
+* +0 与 -0 在存储判断唯一性的时候是恒等的，所以不重复；  
+* undefined 与 undefined 是恒等的，所以不重复；  
+* NaN 与 NaN 是不恒等的，但是在 Set 中只能存一个，不重复。  
 
 ```javascript
 let mySet = new Set();
@@ -4451,15 +4485,17 @@ mySet.add({a: 1, b: 2});
 // 这里体现了对象之间引用不同不恒等，即使值相同，Set 也能存储
 ```  
 ###### 5.1 类型转换  
-Array
+* Array
 ```javascript
 // Array 转 Set
 var mySet = new Set(["value1","value2","value3"]);  
 
 // 用...操作符，将Set 转 Array  
 var myArray = [...mySet];
+// 或
+vat myArray = Array.from(mySet);
 ```  
-String  
+* String  
 ```javascript
 // String 转 Set
 var mySet = new Set("hello"); // Set(4) {"h", "e", "l", "o"}
@@ -4483,7 +4519,7 @@ console.log(union);  //  {1, 2, 3, 4}
 ```javascript
 var a = new Set([1,2,3]);
 var b = new Set([4,2,3]);
-var intersect = new Set([...a].filter(x => b.has(x)));
+var intersect = new Set([...a].filter(x => b.has(x))); // a与b的差
 console.log(intersect);
 ```
 
@@ -4500,13 +4536,93 @@ console.log(diff); // {1}
 
 #### VII ES6 字符串  
 **拓展的方法**  
+1. 子字符串的识别：ES6 之前判断字符串是否包含子串，用 indexOf 方法，ES6 新增了子串的识别方法。
+* str.includes(substr)：返回布尔值，判断是否找到参数字符串。
+* str.startsWith(substr)：返回布尔值，。。。。。。。。。。是否在开头
+* str.endsWith(substr)：返回布尔值，。。。。。。。。。。是否在结尾
+
+2. 字符串重复 .repeat()
+
+3. 字符串补全
+* padStart(length,value)： 返回新的字符串，表示用参数字符串从头部（左侧）补全原字符串。
+* padEnd：
+**实例**  
+```javascript
+console.log("h".padStart(5,"o")); // ooooh
+console.log("123".padStart(10,"0"));  // "0000000123"
+```
+
+4. 模板字符串  
+模板字符串相当于加强版的字符串，用反引号``，除了作为普通字符串，还可以用来定义多行字符串，还可以在字符串中添加变量和表达式。  
+* 基本用法  
+```javascript
+// 普通字符串
+let string = `Hello '\n' world`;
+// Hello
+// world
+
+// 多行字符串
+let string1 = `Hey,
+can you stop angry with me now`;
+// Hey,
+// .....
+
+// 字符串中插入变量和表达式
+// ${} 中可以房子变量名和JavaScript表达式
+let name = "LiMing";
+let age = 24;
+let info = `My name is ${name}, I am ${age + 1} years old net year.`;
+// ...
+
+// 字符串中调用函数
+function f() { return "have fun!";}
+let string2 = `Game Start,${f()}`;
+
+```
+**PS:** 模板字符串中的换行和空格都是会被保留的。
+
+* 标签模板
+是一个函数的调用，其中调用的参数是模板字符串。  
+```javascript
+alert`Hello world~`;
+// 等价于
+alert('Hello world!');
+```
+当模板字符串中带有变量，会将模板字符串参数处理成多个参数。
+```javascript
+
+function f(stringArr,...values){
+ let result = "";
+ for(let i=0;i<stringArr.length;i++){
+  result += stringArr[i];
+  if(values[i]){
+   result += values[i];
+        }
+    }
+ return result;
+}
+let name = 'Mike';
+let age = 27;
+f`My Name is ${name},I am ${age+1} years old next year.`;
+// "My Name is Mike,I am 28 years old next year."
+ 
+f`My Name is ${name},I am ${age+1} years old next year.`;
+// 等价于
+f(['My Name is',',I am ',' years old next year.'],'Mike',28);
+
+```
 
 
 #### VIII ES6 数值  
 ###### 8.1 数值的表示  
 * 二进制表示新写法：前缀0b 或 0B
-
+```javascript
+console.log(ob11 === 3); // true
+```
 * 八进制表示新写法：前缀0o 或 0O
+```javascript
+console.log(0o11 === 9); // true
+```
 
 * 常量  
 Number.EPSILON  
@@ -4522,6 +4638,110 @@ equal = (Math.abs(0.1 - 0.3 + 0.2) < Number.EPSILON); // true
 * 属性特性  
 
 #### IX ES6 对象
+1. 对象字面量  
+* 属性的简洁表示法  
+ES6 允许对象的属性直接写变量，这时候属性名是变量名，属性值也是变量名  
+```javascript
+const age = 12;
+const name = "Amy";
+const person = {age, name};
+person   //{age: 12, name: "Amy"}
+//等同于
+const person = {age: age, name: name}
+
+```
+
+2. 对象的扩展运算符  
+扩展运算符(...)用于取出参数对象所有可遍历属性，然后拷贝到当前对象。
+* 基本用法  
+```javascript
+let person = {name: "Amy", age: 15};
+let someone = {...person};
+console.log(someone); //  {name: "Amy", age: 15}
+```
+* 可用于合并两个对象  
+```javascript
+let age = {age: 15};
+let name = {name: "Amy"};
+let person = {...age,...name};
+console.log(person); //  {age:15,name: "Amy"}
+```  
+**PS:** 自定义的属性和扩展运算符对象里面属性相同的时候：  
+自定义属性在扩展运算符后面，则扩展运算符对象内部同名的属性将被覆盖掉。  
+```javascript
+let person = {name: "Amy",age:15};
+let someone = {...person2, name: "Mike", age: 17};
+console.log(someone); // { name: "Mike", age: 17}
+
+// 自定义属性在扩展运算符前面，则变成设置新对象默认属性值。
+let person = {name: "Amy", age: 15};
+let someone = {name: "Mike", age: 17, ...person};
+someone;  //{name: "Amy", age: 15}
+
+// 拓展运算符后面是空对象，没有任何效果也不会报错。
+let a = {...{}, a: 1, b: 2};
+a;  //{a: 1, b: 2}
+
+// 拓展运算符后面是null或者undefined，没有效果也不会报错。
+let b = {...null, ...undefined, a: 1, b: 2};
+b;  //{a: 1, b: 2}
+```
+
+3. 对象 Object 的新方法  
+* Object.assign(target,source_1, ...)
+用于将元数据的所有可枚举属性复制到目标对象中
+```javascript
+// 基本用法
+let target = {a: 1};
+let object2 = {b: 2};
+let object3 = {c: 3};
+Object.assign(target,object2,object3);  
+// 第一个参数是目标对象，后面的参数是源对象
+target;  // {a: 1, b: 2, c: 3 }
+```
+**PS：**  
+如果目标对象和源对象有同名属性，或者多个源对象有同名属性，则后面的属性会覆盖前面的属性。  
+如果该函数只有一个参数，当参数为对象时，直接返回该对象；当参数不是对象时，会先将参数转为对象然后返回。  
+因为null 和 undefined 不能转化为对象，所以会报错。
+```javascript
+Object.assign(3);         // Number {3}
+typeof Object.assign(3);  // "object"
+
+Object.assign(null);       // TypeError: Cannot convert undefined or null to object
+Object.assign(undefined);  // TypeError: Cannot convert undefined or null to object
+// 当参数不止一个时，null 和 undefined 不放第一个，即不为目标对象时，会跳过 null 和 undefined ，不报错
+Object.assign(1,undefined);  // Number {1}
+Object.assign({a: 1},null);  // {a: 1}
+ 
+Object.assign(undefined,{a: 1});  // TypeError: Cannot convert undefined or null to object
+
+// 同名属性替换：
+targetObj = { a: { b: 1, c:2}};
+sourceObj = { a: { b: "hh"}};
+Object.assign(targetObj, sourceObj);
+targetObj;  // {a: {b: "hh"}}
+
+// 数组处理
+Object.assign([2,3], [5]);  // [5,3]
+// 会将数组处理成对象，所以先将 [2,3] 转为 {0:2,1:3} ，然后再进行属性复制，所以源对象的 0 号属性覆盖了目标对象的 0。
+```
+**PS:**
+assign 的属性拷贝是浅拷贝：
+复制的对象共用一个内存地址，修改其中一个属性值，会影响另一个的属性值。  
+
+* Object.is(value1,value2)  
+用来比较两个值是否严格相等。
+**基本用法** 
+```javascript
+Object.is("q","q"); // true
+Object.is(1,1); // true
+Object.is([1],[1]) // false
+Object.is({q:1},{q,1}) // false
+
+// 与 (===) 的区别
+// +0不等于-0
+// NaN 等于本身
+```
 
 
 #### X ES6 数组  
@@ -4532,12 +4752,12 @@ equal = (Math.abs(0.1 - 0.3 + 0.2) < Number.EPSILON); // true
 console.log(Array.of(1,2,3,4)); [1,2,3,4]
 
 // 参数值可以是不同类型  
-console.log(Array.of(1,'2',true)); // [1,'2',true]
+console.log(Array.of(1,'2',true));  // [1,'2',true]
 
 // 参数为空时，返回空数组
-console.log(Array.of());// []
+console.log(Array.of());  // []
 ```
-2. Array.from()
+2. Array.from()  
 将类数组对象或可迭代对象转化为数组。也可以使用slice方法
 ```javascript
 // 参数为数组,返回与原数组一样的数组
@@ -4592,6 +4812,28 @@ let array1 = Array.from({
 });
 console.log(array1); // [undefined, undefined]
 ```
+**PS：** from() 根据length来创建数组，长度就是length属性值
+**转换可迭代对象**  
+* 转换 map
+```javascript
+let map = new Map();
+map.set('key0','value0');
+map.set('key1','value1');
+console.log(Array.from(map));
+// [['key0', 'value0'],['key1','value1']]
+```
+* 转换 set
+```javascript
+let arr = [1,2,3]
+let set = new Set(arr);
+console.log(Array.from(set)); // [1,2,3]
+```
+* 转换字符串
+```javascript
+let str = "hello";
+console.log(Array.from(str)); // ['h', 'e', 'l', 'l', 'o']
+```
+
 ###### 10.2 扩展方法  
 1. find()
 2. findeIndex()
@@ -4603,6 +4845,254 @@ console.log(array1); // [undefined, undefined]
 8. flat()
 9. faltMap()
 
+###### 10.3 数组缓冲区
+数组缓冲区是内存中的一段地址。  
+定型数组的基础。  
+实际字节数在创建时确定，之后只可以修改其中的数据，不可以修改大小。  
+
+* 创建数组缓冲区  
+```javascript
+let buffer = new ArrayBuffer(10);
+console.log(buffer.byteLength); // 10
+// 分割已有的数组缓冲区
+let buffer1 = buffer.slice(1,3);
+console.log(buffer1.byteLength); // 2
+```
+* 视图  
+视图是用来操作内存的接口。  
+视图可以操作数组缓冲区或缓冲区字节的子集，并按照其中一种数值数据类型来读取和写入数据。  
+DataView类型是一种通用的数组缓冲区视图，其支持所有8种数值型数据类型。
+```javascript
+// 默认 DataView 可操作数组缓冲区全部内容
+let buffer = new ArrayBuffer(10);
+    dataView = new DataView(buffer); 
+dataView.setInt8(0,1);
+console.log(dataView.getInt8(0)); // 1
+ 
+// 通过设定偏移量(参数2)与长度(参数3)指定 DataView 可操作的字节范围
+let buffer1 = new ArrayBuffer(10);
+    dataView1 = new DataView(buffer1, 0, 3); // 0,1,2可以用
+dataView1.setInt8(5,1); // RangeError 
+```
+
+###### 10.4 定型数组  
+数组缓冲区的特定类型的视图。  
+可以强制使用特定的数据类型，而不是使用通用的DataView对象来操作数组缓冲区。  
+* 创建  
+通过数组缓冲区生成
+```javascript
+let buffer = new ArrayBuffer(10);
+  view = new Int8Array(buffer);
+console.log(view.byteLength); //10
+```  
+通过构造函数
+```javascript
+let view = new Int32Array(10);
+console.log(view.byteLength); // 40
+console.log(view.length); // 10
+
+// 不传参则默认长度为0
+// 在这种情况下数组缓冲区分配不到空间，创建的定型数组不能用来保存数据
+let view1 = new Int32Array();
+console.log(view1.byteLength); // 0
+console.log(view1.length);     // 0
+
+// 可接受参数包括定型数组、可迭代对象、数组、类数组对象
+let arr = Array.from({
+  0: '1',
+  1: '2',
+  2: 3,
+  length: 3
+});
+let view2 = new Int16Array([1, 2]),
+    view3 = new Int32Array(view2),
+    view4 = new Int16Array(new Set([1, 2, 3])),
+    view5 = new Int16Array([1, 2, 3]),
+    view6 = new Int16Array(arr);
+console.log(view2 .buffer === view3.buffer); // false
+console.log(view4.byteLength); // 6
+console.log(view5.byteLength); // 6
+console.log(view6.byteLength); // 6
+```
+
+**PS:** 
+定型数组可以使用entries()、keys()、values()进行迭代。  
+```javascript
+let view = new Int16Array([1,2]);
+for(let [key,value] of view.entries()) {
+  console.log(key + ':' + value);
+}
+// 0:1
+// 1:2
+```  
+###### 10.5 扩展运算符  
+* 复制数组  
+```javascript
+let arr = [1,2];
+arr1 = [..arr]; // [1,2]
+
+// 数组含有空位
+let arr = [1,,2];
+arr1 = [..arr]; // [1,undefined,2]
+```
+* 合并数组
+```javascript
+[...arr1,...arr2]
+```
 
 #### XI ES6 函数
+###### 11.1 函数参数的扩展  
+1. 默认参数
+```javascript
+function fn(name,age = 17) {
+  console.log(name + "," + age);
+}
+// PS：使用函数默认参数时，不允许有同名参数，会报错
+// null 值被认为是有效的值传递
+```
+2. 不定参数  
+不定参数用来表示不确定参数个数，形如，...变量名，由...加上一个具名参数标识符组成。具名参数只能放在参数组的最后，并且有且只有一个不定参数。  
 
+###### 11.2 箭头函数  
+**PS：**  
+箭头函数没有 this、super、arguments和new.target绑定。  
+箭头函数体中的this对象，是定义函数时的对象，而不是使用函数时的对象。  
+不可以作为构造函数，也就是不能使用new命令，否则会报错。  
+
+* 适合使用的场景  
+ES6 之前，JavaScript 的 this 对象一直很令人头大，回调函数，经常看到 var self = this 这样的代码，为了将外部 this 传递到回调函数中，那么有了箭头函数，就不需要这样做了，直接使用 this 就行。  
+```javascript
+// 回调函数
+var Person = {
+    'age': 18,
+    'sayHello': function () {
+      setTimeout(function () {
+        console.log(this.age);
+      });
+    }
+};
+var age = 20;
+Person.sayHello();  // 20
+ 
+var Person1 = {
+    'age': 18,
+    'sayHello': function () {
+      setTimeout(()=>{
+        console.log(this.age);
+      });
+    }
+};
+var age = 20;
+Person1.sayHello();  // 18
+```
+* 不适合使用的场景  
+1. 定义函数的方法，且该方法中包含this。  
+```javascript
+var person = {
+  'age':18,
+  'sayHello': () => {
+    console.log(this.age);
+  }
+};
+var age = 20;
+person.sayHello(); // 20
+var person1 = {
+  'age':18,
+  'sayHello':fucntion() {
+    console.log(this.age);
+  }
+};
+var age = 20;
+person1.sayHello(); // 18
+```
+2. 需要动态this的时候  
+例如，做为事件函数时  
+```javascript
+var button = document.getElementById('userClick');
+button.addEventListener('click',() => {
+  this.classList.toggle('on');
+});
+```
+button的监听函数是箭头函数，所以监听函数里面的this指向的是定义的时候外层的this对象，即window，导致无法操作到被点击的按钮对象。
+
+#### XII Class 类  
+在ES6中，class (类)作为对象的模板被引入，可以通过 class 关键字定义类。  
+class 的本质是 function。  
+它可以看作一个语法糖，让对象原型的写法更加清晰、更像面向对象编程的语法。  
+
+#### XIII 模块  
+在ES6之前，实现模块化使用的是RequireJS 或者 seaJS（分别是基于AMD规范的模块化库，和基于CMD规范的莫阔花裤）。
+ES6引入模块化，设计思想是在编译时就能够确定模块的依赖关系，以及输入和输出的变量。  
+ES6的模块化分为导出export与导入import两个模块。  
+**特点**  
+ES6 的模块自动开启严格模式，use strict  
+模块中可以导入和导出各种类型的变量，比如函数，对象，字符串，数字，布尔值，类等  
+每个模块都有自己的上下文，每一个模块内声明的变量都是局部变量，不会污染全局作用域。  
+每一个模块只加载一次（是单例的），若再去加载同目录下同文件，直接从内存中读取。  
+
+* export 与 import  
+基本用法  
+模块导入导出各种类型的变量，如字符串、数值、函数、类。  
+① 导出的函数声明与类声明必须要有名称（export default命令另外考虑）  
+② 不仅能导出声明还能导出引用（例如函数）
+③ export命令可以出现在模块的任何位置，但是必须处于模块顶层
+④ import命令会提升到整个模块的头部，首先执行
+
+```javascript
+/*-----export [test.js]-----*/
+let myName = "Tom";
+let myAge = 20;
+let myfn = function(){
+    return "My name is" + myName + "! I'm '" + myAge + "years old."
+}
+let myClass =  class myClass {
+    static a = "yeah!";
+}
+export { myName, myAge, myfn, myClass }
+ 
+/*-----import [xxx.js]-----*/
+import { myName, myAge, myfn, myClass } from "./test.js";
+console.log(myfn());// My name is Tom! I'm 20 years old.
+console.log(myAge);// 20
+console.log(myName);// Tom
+console.log(myClass.a );// yeah!
+
+```
+建议使用大括号指定要输出的一组变量写在文档尾部，明确导出的接口。  
+函数和类都需要有对应的名称，导出文档尾部也避免了无对应名称。
+
+* as 的用法  
+export 命令导出的接口名称，须和模块内部的变量有一一对应关系。  
+导入的变量名，须和导出接口名称相同，即顺序可以不一致。  
+```javascript
+/*-----export [test.js]-----*/
+let myName = "Tom";
+export { myName as exportName }
+ 
+/*-----import [xxx.js]-----*/
+import { exportName } from "./test.js";
+console.log(exportName);// Tom
+// 使用 as 重新定义导出的接口名称，隐藏模块内部的变量
+
+// 2. 不同模块导出接口名称命名重复， 使用 as 重新定义变量名。
+/*-----export [test1.js]-----*/
+let myName = "Tom";
+export { myName }
+/*-----export [test2.js]-----*/
+let myName = "Jerry";
+export { myName }
+/*-----import [xxx.js]-----*/
+import { myName as name1 } from "./test1.js";
+import { myName as name2 } from "./test2.js";
+console.log(name1);// Tom
+console.log(name2);// Jerry
+```
+**import命令的特点**  
+**只读属性：** 不允许在加载模块的脚本练，改写接口的引用指向，即可以改写import变量类型为对象的属性值，不能改写import变量为基本类型的值。
+```javascript
+import {a} from "./xxx.js"
+a = {}; // error
+
+a.foo = "hello"; // a = {foo: 'hello'}
+```
+**单例模式：** 多次重复执行同一句import语句，那么只会执行一次，而不会执行多次。
