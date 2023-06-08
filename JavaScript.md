@@ -1,6 +1,6 @@
-### 一、 JavaScript 基础教程 2022.0317
+## 一、 JavaScript 基础教程 2022.0317
 
-##### 1. JavaScript 用法
+#### 1. JavaScript 用法
 
 HTML 中的脚本必须位于 \<script> 与 \</script> 标签之间。
 脚本可被放置在 HTML 页面的 \<body> 和 \<head> 部分中。
@@ -35,7 +35,7 @@ HTML 中的脚本必须位于 \<script> 与 \</script> 标签之间。
 JavaScript 访问某个 HTML 元素，您可以使用 document.getElementById(id) 方法。需要为元素提前设置 id 属性。  
  使用 "id" 属性来标识 HTML 元素，并 innerHTML 来获取或插入元素内容。
 
-##### 2. JavaScript 语法
+#### 2. JavaScript 语法
 
 JavaScript 是一个程序语言。语法规则定义了语言结构。
 
@@ -45,7 +45,7 @@ JavaScript 是一个程序语言。语法规则定义了语言结构。
 - 变量也能以 $ 和 \_ 符号开头（不过我们不推荐这么做）
 - 变量名称对大小写敏感（y 和 Y 是不同的变量）
 
-##### 3. JavaScript 数据类型
+#### 3. JavaScript 数据类型
 
 - 值类型[基本类型]：数字 Number、字符串 String、布尔 Boolean、对空 Null、未定义 Undefined、Symbol（ES6，引入的新原始类型，表示独一无二的值）
 - 引用类型：数组 Array、对象 Object、函数 Function
@@ -67,7 +67,7 @@ var x = 'abc'; // string
   1. isArray(): if(Array.isArray){if(Array.isArray(cars)) console.log("cars 是 Array");}
   2. instanceof: if(cars instanceof Array) {console.log("cars 是 Array");}
 
-##### 4. JavaScript 函数
+#### 4. JavaScript 函数
 
 函数是由事件驱动的或者当它被调用时执行的可重复使用的代码块。
 
@@ -78,7 +78,7 @@ var x = 'abc'; // string
         // 执行代码
     }
 
-##### 5. JavaScript 作用域
+#### 5. JavaScript 作用域
 
 在 JavaScript 中, 对象和函数同样也是变量。  
 **在 JavaScript 中, 作用域为可访问变量，对象，函数的集合。**  
@@ -107,7 +107,7 @@ JavaScript 变量生命周期在它声明时初始化。
 
 let 允许你声明一个作用域被限制在块级中的变量、语句或者表达式（对于使用 for 循环中的循环变量，使用 let 声明）。与 var 关键字不同的是，它声明的变量只能是全局或者整个函数块的。
 
-##### 6. JavaScript 事件
+#### 6. JavaScript 事件
 
 当 HTML 中发生事件是，称为 HTML 事件。在 HTML 中使用 JavaScript 来相应 HTML 事件，称为 JavaScript 事件。
 
@@ -131,7 +131,7 @@ HTML 事件可以是浏览器行为，也可以是用户行为：
 | onload | 浏览器已完成页面的加载 |
 | onblur| 失去焦点时触发 |
 
-##### 7. JavaScript 字符串
+#### 7. JavaScript 字符串
 
 JavaScript 字符串用于存储和处理文本。
 
@@ -161,13 +161,13 @@ JavaScript 字符串用于存储和处理文本。
    trim() 移除字符串首尾空白(JS 中"A "空格也有长度 "A "长度为 2)  
    valueOf() 返回某个字符串对象的原始值
 
-#### 7. JavaScript 运算符
+#### 8. JavaScript 运算符
 
-###### 7.1 对字符串和数字进行加法运算
+###### 8.1 对字符串和数字进行加法运算
 
 两个数字相加，返回数字相加的和，如果数字与字符串相加，返回字符串。
 
-###### 7.2 JavaScript == 与 === 区别
+###### 8.2 JavaScript == 与 === 区别
 
 1. 对于 string、number 等基础类型，== 和 === 是有区别的
 
@@ -185,16 +185,16 @@ _PS010_: bool 类型在与数字类型进行相加时，视为 0 或者 1 处理
 _PS020_: null 类型与数字类型进行累加时，视为 0 处理。  
 _PS030_: undefined 除了与字符串进行累加时有效（undefined 视为字符串"undefined"处理），其他情况皆返回 NaN。 1 + undefined = NaN
 
-##### 8. JavaScript 比较 和 逻辑运算符
+#### 9. JavaScript 比较 和 逻辑运算符
 
-###### 8.1 比较运算符
+###### 9.1 比较运算符
 
 == 等于  
 === 绝对等于（值和类型均相等）  
 != 不等于  
 !== 不绝对等于（值和类型有一个不相等，或两个都不相等）
 
-###### 8.2 逻辑运算符
+###### 9.2 逻辑运算符
 
 给定 x=6 以及 y=3，下表解释了逻辑运算符：
 && and (x < 10 && y > 1) 为 true  
@@ -202,20 +202,20 @@ _PS030_: undefined 除了与字符串进行累加时有效（undefined 视为字
 ! not not !(x == y) 为 true  
 _PS010_: 其他数据类型转换为布尔类型的规则: null、 undefined、 0、 NaN、 空字符串 转换为 false，其他转化为 true。
 
-###### 8.3 常用函数  
+###### 9.3 常用函数  
 isNaN() 函数用于检查其参数是否是非数字值。  
 如果参数值为 NaN 或字符串、对象、undefined等非数字值则返回 true, 否则返回 false。
 
-##### 9. 条件语句
+#### 10. 条件语句
 
 。。。
 
-###### 9.1 break 和 continue 语句
+###### 10.1 break 和 continue 语句
 
 break 语句用于跳出当前循环。  
 continue 用于跳过循环中的一个迭代。
 
-###### 9.2 操作符 typeof 或 方法 typeof()
+###### 10.2 操作符 typeof 或 方法 typeof()
 
 typeof "John" // 返回 string  
 typeof 3.14 // 返回 number  
@@ -223,14 +223,14 @@ typeof false // 返回 boolean
 typeof [1,2,3,4] // 返回 object  
 typeof {name:'John', age:34} // 返回 object
 
-###### 9.3 null
+###### 10.3 null
 
 在 JavaScript 中 null 表示 "什么都没有"。  
 null 是一个只有一个值的特殊类型。表示一个空对象引用。  
 用 typeof 检测 null 返回是 object。  
 _PS:_ 当使用完一个比较大的对象时，需要对其进行释放内存时，设置为 null。
 
-###### 9.4 undefined
+###### 10.4 undefined
 
 在 JavaScript 中, undefined 是一个没有设置值的变量。  
 typeof 一个没有值的变量会返回 undefined。  
@@ -247,7 +247,7 @@ console.log(x);// undefined
 > null === undefined // false
 > null == undefined // true
 
-##### 10. 类型转换
+#### 11. 类型转换
 
 > NaN 的数据类型是 number
 > 数组(Array)的数据类型是 object
@@ -281,7 +281,7 @@ console.log(Object.prototype.toString.call(myArray).indexOf("Array") > -1); //
    > return myDate.constructor.toString().indexOf("Date") > -1;
    > }
 
-###### 10.1 日期
+###### 11.1 日期
 
 var myDate = new Date();  
 **一些方法**  
@@ -295,7 +295,7 @@ getMonth() 从 Date 对象返回月份 (0 ~ 11)。
 getSeconds() 返回 Date 对象的秒数 (0 ~ 59)。  
 getTime() 返回 1970 年 1 月 1 日至今的毫秒数。
 
-###### 10.2 Number 数字
+###### 11.2 Number 数字
 
 ***字符串转成数字***
 
@@ -338,7 +338,7 @@ d.getTime() // 返回 1404568027739
 
 ---
 
-##### 11. JavaScript 错误 - try throw 和 catch finally
+#### 12. JavaScript 错误 - try throw 和 catch finally
 
 1. try 语句测试代码块的错误  
    try 语句允许我们定义在执行时进行错误测试代码块
@@ -369,7 +369,7 @@ function myFunction() {
 }
 ```
 
-##### 12. JavaScript 调试
+#### 13. JavaScript 调试
 
 1. 浏览器控制台调试 console.log() 方法
 2. 设置断点
@@ -378,7 +378,7 @@ function myFunction() {
    debugger;
    document.getElementbyId("demo").innerHTML = x;
 
-##### 13. JavaScript 声明提升
+#### 14. JavaScript 声明提升
 
 JavaScript 中，函数及变量的声明都将被提升到函数的最顶部。  
 JavaScript 中，变量可以在使用后声明，也就是变量可以先使用再声明。  
@@ -448,14 +448,14 @@ function f(){
 // 返回true，因为严格模式下，this的值为undefined，所以"!this"为true。
 ```
 
-##### 14. JavaScript 表单
+#### 15. JavaScript 表单
 
 - 14.1 JavaScript 表单验证  
   HTML 表单验证可以通过 JavaScript 来完成。  
   JavaScript 可用来在数据被送往服务器前对 HTML 表单中的这些输入数据进行验证。
 - 14.2 JavaScript 验证 API
 
-##### 15. JavaScript 关键字
+#### 16. JavaScript 关键字 && 变量
 
 - 15.1 this 关键字  
   面向对象语言中 this 表示当前对象的一个引用。  
@@ -484,7 +484,7 @@ console.log(person.fullName());
 // 解释：符合第一条，在方法中 this 表示当前方法所属的对象，即当前 this 属于 person对象
 ```
 
-_实例 2：_ 如果单独使用，this 表示全局对象  
+*实例 2：* 如果单独使用，this 表示全局对象  
 单独使用 this，则它指向全局(Global)对象。
 在浏览器中，window 就是该全局对象为 [object Window]；  
 严格模式下，如果单独使用，this 也是指向全局(Global)对象。
@@ -495,7 +495,7 @@ console.log(this);
 // 输出：[object Window]
 ```
 
-_实例 3：_ 在函数中，使用 this 表示全局变量(默认)  
+*实例 3：* 在函数中，使用 this 表示全局变量(默认)  
 在函数中，函数的所属者默认绑定到 this 上。
 在浏览器中，window 就是该全局对象为 [object Window]:
 
@@ -564,6 +564,7 @@ person1.fullName.call(person2); // 返回 "John Doe"
 
 ##### I 全局变量
 在函数在声明的变量是全局的，全局变量在JavaScript 程序的任何位置都可以访问。
+
 ##### II 局部变量
 在函数内部声明的变量，其作用域是局部的（函数内部）。
 在函数内部使用var 声明的变量只能在函数内部访问，如果不适应var 则是全局变量。
@@ -752,7 +753,7 @@ const cars = ["Saab", "Volvo", "BMW"];
 cars = ["Toyota", "Volvo", "Audi"]; // 错误
 ```
 
-##### 16. JavaScript JSON
+#### 17. JavaScript JSON
 
 JSON 是用于存储和传输数据的格式  
 JSON 通常用于服务端向网页传递数据
@@ -770,14 +771,14 @@ JSON 易于理解
 JSON 格式在语法上与创建 JavaScript 对象代码是相同的  
 由于它们很相似，所以 JavaScript 程序可以很容易的将 JSON 数据转换为 JavaScript 对象。
 
-##### III JSON 语法规则
+###### III JSON 语法规则
 
 - 数据为 键/值 对
 - 数据由逗号分隔
 - 大括号保存对象 {包含多个键/值 对}
 - 方括号保存数组[PS：数组中也可以存在{对象}]
 
-##### IV JSON 字符串转换成 JavaScript 对象
+###### IV JSON 字符串转换成 JavaScript 对象
 
 通常我们在服务器上读取 JSON 数据，然后显示在网页上。  
 首先，创建 JavaScript 字符串，字符串为 JSON 格式的数据：
@@ -798,7 +799,7 @@ var obj = JSON.parse(text);
 |JSON.parse()|用于将一个 JSON 字符串转换为 JavaScript 对象|
 |JSON.stringify()|用于将 JavaScript 值转换成 JSON 字符串|
 
-#### 17. JavaScript void
+#### 18. JavaScript void
 
 ###### I javascript:void(0)
 
@@ -871,7 +872,7 @@ javascript: void func();
 <p id="pos">尾部定位点</p>
 ```
 
-##### 18. JavaScript 异步编程
+#### 19. JavaScript 异步编程
 可以用于 JavaScript 异步模式的编程的方式：  
 1. 回调函数 setTimeout
 2. 事件监听
@@ -887,7 +888,7 @@ javascript: void func();
 但是子线程有一个局限：一旦发射了以后就会与主线程失去同步，我们无法确定它的结束，如果结束之后需要处理一些事情，比如处理来自服务器的信息，我们是无法将它合并到主线程中去的。  
 为了解决这个问题，JavaScript 中的异步操作函数往往通过回调函数来实现异步任务的结果处理。
 
-##### III 回调函数
+###### III 回调函数
 
 回调函数就是一个函数，它是在我们启动一个异步任务的时候就告诉它：等你完成了这个任务之后要干什么。这样一来主线程几乎不用关心异步任务的状态了，他自己会善始善终。  
 **实例 1：**
@@ -917,7 +918,7 @@ console.log("2");
 除了 setTimeout 函数以外，异步回调广泛应用于 AJAX 编程。  
 有关于 AJAX 详细请参见：https://www.runoob.com/ajax/ajax-tutorial.html
 
-##### 19. JavaScript Promise
+#### 20. JavaScript Promise
 
 Promise 是一个 ECMAScript6 提供的 **类**，目的是更加优雅的书写复杂的异步任务。
 
@@ -1001,7 +1002,7 @@ new Promise(function (resolve, reject) {
 Promise 构造函数只有一个参数，是一个函数，这个函数在构造之后会直接被异步运行，所以我们称之为起始函数。  
 起始函数包含两个参数 resolve 和 reject。  
 resolve 和 reject 都是函数，其中调用 resolve 代表一切正常，reject 是出现异常时所调用的。  
-**实例 01**
+**实例 01**  
 ```javascript
 new Promise(function (resolve, reject) {
   var a = 0;
@@ -1081,6 +1082,7 @@ print(1000, "1")
 // 结果: 1 2 3
 // 如果取消return 则，2和3的then都是依赖于1的promise，所以执行结果为1 3 2
 ```
+
 ###### IV 其他 Promise 方法  
 * Promise.all() 方法用于将多个 Promise 实例，包装成一个新的 Promise 实例。  
 ```javascript
@@ -1155,7 +1157,7 @@ asyncFunc(); // 输出： Return value
   有了 Promise 对象，就可以将异步操作以同步操作的流程表达出来，避免了层层嵌套的回调函数。此外，Promise 对象提供统一的接口，使得控制异步操作更加容易。  
   Promise 也有一些缺点。首先，无法取消 Promise，一旦新建它就会立即执行，无法中途取消。其次，如果不设置回调函数，Promise 内部抛出的错误，不会反应到外部。第三，当处于 Pending 状态时，无法得知目前进展到哪一个阶段（刚刚开始还是即将完成）。
 
-##### 20. 正则表达式 Regular Expression
+#### 21. 正则表达式 Regular Expression
 
 正则表达式 Regular Expression（在代码中常用简写，regex，regexp 或 RE）使用单个字符串来描述、匹配一系列符合某个语法规则的字符串搜索模式。  
 搜索模式可以用文本搜索和文本替换。
@@ -1174,8 +1176,7 @@ asyncFunc(); // 输出： Return value
         \^ 匹配输入字符串的开头
         [1-9]+ 匹配1次或多次数字，[1-9]1-9的单个数字，+匹配一次或多次
         abc\$ 匹配以字母 abc 并以 abc 结尾，\$匹配输入字符串结尾位置。
-_实例：_
-
+**实例：**
 ```javascript
 var patt = /food/i;
 // /food/i 是一个正则表达式
@@ -1187,10 +1188,9 @@ var patt = /food/i;
 
 在 JavaScript 中，正则表达式通常用两个字符串方法 search() 和 replace()。
 
-- search() 方法用于检索字符串中指定的字符串，或检索与正则表达式相匹配的子字符串，并返回子串的起始位置，如果不存在，返回-1。
-- replace() 方法用于在字符串中用一些字符串替换另一些字符串，或替换一个与正则表达式匹配的子串，并返回替换后的字符串。  
-  _实例：_
-
+* search() 方法用于检索字符串中指定的字符串，或检索与正则表达式相匹配的子字符串，并返回子串的起始位置，如果不存在，返回-1。
+* replace() 方法用于在字符串中用一些字符串替换另一些字符串，或替换一个与正则表达式匹配的子串，并返回替换后的字符串。  
+**实例：**
 ```javascript
 // 使用正则表达式搜索 "Runoob" 字符串，且不区分大小写：
 var str = "Visit Runoob!";
@@ -1221,27 +1221,27 @@ console.log(n); // Visit Runoob!
 
 ###### V 正则表达式模式
 
-- 方括号用于查找某个范围内的字符  
+* 方括号用于查找某个范围内的字符  
    |表达式|描述|
   |:---|:---|
   |[abc...]|查找方括号之间的任一字符|
   |[^abc]|匹配非[]中字符的所有字符|
   |[0-9]|查找任一 0-9 的数字|
   |(x\|y)|查找任何以\|分隔的选项|
-- 元字符是拥有特殊含义的字符  
+* 元字符是拥有特殊含义的字符  
   |元字符|描述|
   |:---|:---|
   |\d|查找数字|
   |\s|查找空白字符|
   |\b|匹配单词边界|
   |\uxxxx|查找以十六进制 xxxx 规定的 Unicode 字符|
-- 量词  
+* 量词  
    |量词|描述|
   |:---|:---|
   |n+|匹配任何包含至少一个 n 的字符|
   |n\*|匹配任何包含 0 个或多个 n 的字符串|
   |n?|匹配任何包含 0 个或一个 n 的字符串|
-- 通配符
+* 通配符
   |通配符|描述|
   |:---|:---|
 
@@ -1319,7 +1319,7 @@ str.match(patt);
 // 结果：  [ "b",  "a", "b",  "a"]
 ```
 
-- 常用字符  
+* 常用字符  
    |字符|描述|
   |:---|:---|
   |[ABC]|匹配 [...] 中的所有字符，例如 [aeiou] 匹配字符串 "google runoob taobao" 中所有的 e o u a 字母。|
@@ -1329,7 +1329,7 @@ str.match(patt);
   |[\s\S]|匹配所有。 说明：\s 是匹配所有空白符，包括换行。\S 非空白符，不包括换行。|
   |\w|匹配字母、数字、下划线。等价于[A-Za-z0-9_]|
 
-- 特殊字符  
+* 特殊字符  
   所谓特殊字符，就是一些有特殊含义的字符。如果要匹配这些特殊字符，需要对这些字符进行转义\。  
   下表列出了正则表达式中的特殊字符：
   |特殊字符|描述|
@@ -1343,7 +1343,7 @@ str.match(patt);
   |\\|转义字符|
   |{|标记限定符表达式的开始（限定符看下一张表格）|
   |\||指明两项之间的一个选择|
-- 限定符  
+* 限定符  
   限定字符用来指定正则表达式的一个给定组件必须要出现多少次才能满足匹配要求。有* + ? {n} {n,} {n,m}六种
   |特殊字符|描述|
   |:---|:---|
@@ -1356,7 +1356,6 @@ str.match(patt);
 
 **PS01:** * 和 + 都是贪婪的，因为它们会尽可能多的匹配文字，只有在它们的后面加上?就可以实现非贪婪或最小匹配。  
 **实例：**
-
 ```javascript
 // 例如，您可能搜索 HTML 文档，以查找在 h1 标签内的内容。
 var str = "<h1>RUNOOB-菜鸟教程</h1>";
@@ -1383,17 +1382,15 @@ str.match(/^<.*>$/); //  <h1>RUNOOB-菜鸟教程</h1>
 // 真正的章节标题不仅出现行的开始处，而且它还是该行中仅有的文本。它既出现在行首又出现在同一行的结尾。
 var patt = /^Chapter [1-9][0-9]{0,1}$/;
 ```
+**PS:** 单词边界是单词和空格之间的位置。非单词边界是任何其他位置。  
 
-    PS 单词边界是单词和空格之间的位置。非单词边界是任何其他位置。
-
-##### 21 JavaScript 代码规范
+#### 22 JavaScript 代码规范
 
 ---
 
-### 二、 JS 函数  2022.0330
-
+## 二、 JS 函数  2022.0330
 #### I JavaScript 函数定义
-JavaScript 使用 function 关键字定义函数  
+JavaScript 使用 function 关键字定义函数;  
 函数可以通过声明定义，也可以是一个表达式。 
 
 ---
@@ -1516,7 +1513,6 @@ var Person1 = {
 var age = 20;
 Person1.sayHello();  // 18
 ```
-
 
 #### II JavaScript 函数参数  
 JavaScript 函数对参数的值没有进行任何的检查。  
@@ -1716,7 +1712,7 @@ function myFunction() {
 全局变量的作用域是全局性的，即在整个JavaScript程序中，全局变量处处都在。  
 而在函数内部声明的变量，只在函数内部起作用。这些变量是局部变量，作用域是局部性的；函数的参数也是局部性的，只在函数内部起作用。  
 
-### 3. 计数器困境  
+###### 3. 计数器困境  
 设想下如果你想统计一些数值，且该计数器在所有函数中都是可用的。  
 你可以使用全局变量，函数设置计数器递增：  
 ```javascript
@@ -1799,7 +1795,8 @@ add变量可以作为一个函数使用。非常棒的部分是它可以访问�
 
 
 ___
-### 三、 JS 类  2022.0403
+
+## 三、 JS 类  2022.0403
 #### I JavaScript 类
 **类是用于创建对象的模板**  
 使用 class 关键字来创建一个类，类体在一对大括号 {} 中，我们可以在大括号 {} 中定义类成员的位置，如方法或构造函数。  
@@ -4176,6 +4173,7 @@ JSONP(JSON with Padding) 是JSON的一种使用方式，可以让网页从别的
 
 
 ---
+
 ## 八、 JS ES6
 ES6，全程ECMAScript6.0 是JavaScript下的一个标准版本，2015年06月发布。   
 
@@ -5095,4 +5093,17 @@ a = {}; // error
 
 a.foo = "hello"; // a = {foo: 'hello'}
 ```
-**单例模式：** 多次重复执行同一句import语句，那么只会执行一次，而不会执行多次。
+**单例模式：** 多次重复执行同一句import语句，那么只会执行一次，而不会执行多次。import同一模块，声明不同接口引用，会声明对应变量，但只执行一次import。  
+* 静态执行特性：import是静态执行，所以不能使用表达式和变量。  
+
+**export default 命令**  
+* 在一个文件或模块中，export、import可以有多个，export default仅有一个  
+* export default 中的 default是对应的导出接口变量  
+* 通过export 方式导出，在导入时需要加{}，export default 则不需要  
+* export default 向外暴露的成员，可以使用任意变量来接受。  
+
+**复合使用**  
+export 与 import 可以在同一模块使用，使用特点：  
+* 可以将导出接口改名，包括 default  
+* 复合使用export 与 import，也可以导出全部，当模块导出的接口会覆盖继承导出的。  
+
